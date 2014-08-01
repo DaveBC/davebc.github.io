@@ -17,95 +17,96 @@
 			//var post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr;
 			if(data.query.results == null) {
 				if(AT_Retry == 3) {
-					$('#errorMessageText').text("ERROR: No results revieved... can you view ");
+					$('#errorMessageText').text("ERROR: No results received... can you view ");
 					$('#errorLink').text('your profile?');
 					var plink = "";
-					plink = plink.concat('<a target="_blank" href="thepowerof10.info/athletes/profile.aspx?athleteid=', AT_PROFILE,'"/>');
+					plink = plink.concat('<a target="_blank" href="http://www.thepowerof10.info/athletes/profile.aspx?athleteid=', AT_PROFILE,'"/>');
 					$('#errorLink').wrap(plink);
-					console.log(msg);
 					$('#loader').hide();
 					AT_Retry = 0;
 					return;
 				}
 				else {
+					$('#errorMessageText').text("ERROR: No results received... can you view ");
 					AT_Retry++;
 					var msg = "";
-					msg = msg.concat('ERROR: No results recieved... Attempting retry (',AT_Retry+1, ' of 3)');
-					$('#errorMessageText').text(msg);
+					msg = msg.concat('ERROR: No results received... Attempting retry (',AT_Retry, ' of 3)');
 					console.log(msg);
 					generateAllTime();
 				}
 			}
-			var post;
-			try {
-				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
-			}
-			catch (e) {
-				var errmsg = ""
-				errmsg = errmsg.concat("ERROR: Profile with ID ", AT_PROFILE, " not found!");
-				$('#errorMessageText').text(errmsg);
-				console.log(errmsg);
-				console.log(e);
-				$('#loader').hide();
-				return;
-			}
-			AT_ATHLETE_NAME = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[0].tr.td[0].h2;
-			var firstName = AT_ATHLETE_NAME.substring(0,AT_ATHLETE_NAME.indexOf(' '));
-			var secondName = AT_ATHLETE_NAME.substring(AT_ATHLETE_NAME.indexOf(' '),AT_ATHLETE_NAME.length).toUpperCase();
-			AT_ATHLETE_NAME = firstName + secondName;
-			for(k = 0; k <Object.keys(post).length; k++) {
-				if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
-					divNum = k;
-					post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[k].table[1].tr;
-					break;
+			else {
+				var post;
+				try {
+					post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
 				}
-			}
-			var numPerfs = Object.keys(post).length;
-			var loopCounter = 0;
-			var currentYear = 2014;
-			for (i = 0; i < numPerfs; i++) { 
-				loopCounter++;
-				var performance;
-				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[divNum].table[1].tr[i];
-				if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
-					continue;
+				catch (e) {
+					var errmsg = ""
+					errmsg = errmsg.concat("ERROR: Profile with ID ", AT_PROFILE, " not found!");
+					$('#errorMessageText').text(errmsg);
+					console.log(errmsg);
+					console.log(e);
+					$('#loader').hide();
+					return;
 				}
-				else {
-					if(post.td[1].p == 'DQ') {
+				AT_ATHLETE_NAME = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[0].tr.td[0].h2;
+				var firstName = AT_ATHLETE_NAME.substring(0,AT_ATHLETE_NAME.indexOf(' '));
+				var secondName = AT_ATHLETE_NAME.substring(AT_ATHLETE_NAME.indexOf(' '),AT_ATHLETE_NAME.length).toUpperCase();
+				AT_ATHLETE_NAME = firstName + secondName;
+				for(k = 0; k <Object.keys(post).length; k++) {
+					if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
+						divNum = k;
+						post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[k].table[1].tr;
+						break;
+					}
+				}
+				var numPerfs = Object.keys(post).length;
+				var loopCounter = 0;
+				var currentYear = 2014;
+				for (i = 0; i < numPerfs; i++) { 
+					loopCounter++;
+					var performance;
+					post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[divNum].table[1].tr[i];
+					if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
 						continue;
 					}
-					if(post.td[1].p == 'DNF') {
-						continue;
-					}
-					if(post.td[0].p == AT_EVENT) {
-						if(Object.keys(post.td[9])[0] == 'a') {
-							performance = {
-								time:post.td[1].p,
-								date:post.td[11].p,
-								location:post.td[9].a.content,
-							};
-						} 
-						else {
-							performance = {
-								time:post.td[1].p,
-								date:post.td[11].p,
-								location:post.td[9].p,
-							};
+					else {
+						if(post.td[1].p == 'DQ') {
+							continue;
 						}
-						if(SB) {
-							var resDate = new Date(performance.date);
-							if(resDate.getFullYear() == currentYear) {
+						if(post.td[1].p == 'DNF') {
+							continue;
+						}
+						if(post.td[0].p == AT_EVENT) {
+							if(Object.keys(post.td[9])[0] == 'a') {
+								performance = {
+									time:post.td[1].p,
+									date:post.td[11].p,
+									location:post.td[9].a.content,
+								};
+							} 
+							else {
+								performance = {
+									time:post.td[1].p,
+									date:post.td[11].p,
+									location:post.td[9].p,
+								};
+							}
+							if(SB) {
+								var resDate = new Date(performance.date);
+								if(resDate.getFullYear() == currentYear) {
+									AT_RESULTS[AT_RESULTS.length] = performance;
+									currentYear--;
+								}
+							}
+							else {
 								AT_RESULTS[AT_RESULTS.length] = performance;
-								currentYear--;
 							}
 						}
-						else {
-							AT_RESULTS[AT_RESULTS.length] = performance;
-						}
 					}
-				}
-				if(loopCounter == numPerfs) {
-					drawVisualization();
+					if(loopCounter == numPerfs) {
+						drawVisualization();
+					}
 				}
 			}
 		};
@@ -118,6 +119,9 @@
         AT_tableData.addColumn('timeofday', 'Time 2014');
         AT_tableData.addColumn({type:'string', role:'tooltip', 'p': {'html': true}});
 		  
+		  if(AT_RESULTS.length == 0) {
+			  drawVisual();
+		  }
 		  for(i = 0; i < AT_RESULTS.length; i++) {
 			  var reg = /\-/g;
 			  if(reg.test(AT_RESULTS[i].date)) {

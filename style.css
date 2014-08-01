@@ -62,8 +62,7 @@ header h1 {
 }
 
 .errorMessage {
-	margin-top: 20%;
-	margin-left: auto;
+	margin:-30em 0 30em 0;
 	text-align: center;
 	font-family:"Libre Baskerville",serif;
 	color:#F00;
@@ -84,7 +83,7 @@ strong {
     height: auto !important;
     height: 600px;
 	border:1px solid;
-	border-color:#CCC
+	border-color:#CCC;
 }
 
 .container {
