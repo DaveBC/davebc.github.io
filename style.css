@@ -1,0 +1,168 @@
+.body-font {
+	font-family:"Libre Baskerville",serif;font-weight:400
+}
+
+body {
+  background:#e0e0e0;
+  font-size:100%;
+  font-family:"Libre Baskerville",serif;
+  font-weight:400;
+  height:99%;
+}
+
+html {
+	height:100%;
+}
+
+@font-face {
+	font-family:'OstrichSans';
+	src:url("../fonts/ostrich-regular-webfont.eot");
+	src:url("../fonts/ostrich-regular-webfont.eot?#iefix")
+		format("embedded-opentype"),url("./fonts/ostrich-regular-webfont.woff")
+		format("woff"),url("./fonts/ostrich-regular-webfont.ttf")
+		format("truetype"),url("./fonts/ostrich-regular-webfont.svg#OstrichSans") 
+		format("svg");
+	font-weight:normal;
+	font-style:normal
+}
+h1 {
+	font-family:"OstrichSans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight:normal
+}
+
+h2 {
+	font-family:"Libre Baskerville",serif;
+	font-weight:400;
+	font-size:1.125em;
+	line-height:1.875em;
+	color:#464646;
+	-webkit-font-smoothing:antialiased
+}
+
+header {
+	width:720px;
+	margin:3em auto 0;
+	text-align:center
+}
+
+header h1 {
+	font-size:6.4em;
+	color:#464646;
+	line-height:0.879em;
+	margin:0.1em 0 -0.1em 0
+}
+
+.bottomHead {
+	font-size:3.4em;
+}
+
+.bodyText {
+	font-style:italic;
+	padding:0 10%
+}
+
+.errorMessage {
+	margin-top: 20%;
+	margin-left: auto;
+	text-align: center;
+	font-family:"Libre Baskerville",serif;
+	color:#F00;
+}
+
+em {
+	font-weight:400
+}
+
+strong {
+	font-weight:700
+}
+
+.visual {
+	margin:0.5em 0 -0.1em 10.9375%;
+	width: 78.125%; 
+	min-height: 75%; 
+    height: auto !important;
+    height: 600px;
+	border:1px solid;
+	border-color:#CCC
+}
+
+.container {
+	margin:-0.75em auto;
+	padding:0 20px;
+	text-align:center
+}
+
+.headContainer {
+	margin:-3em 0 -1em 0;
+	padding:0 20px;
+	text-align:center
+}
+
+.pageLine {
+	content:"";
+	width:60%;
+	margin:1.5em 20% 1em;
+	height:0px;
+	display:block;
+	border:1px solid;
+	border-style:inset
+}
+
+.name span {
+	-webkit-animation-name:flash-letter;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-duration:5100ms;
+	-webkit-animation-duration:6.8s;
+	-webkit-animation-timing-function:ease;
+	-webkit-animation-fill-mode: forwards; /* Safari and Chrome */
+    animation-fill-mode: forwards;
+}
+
+.name {
+	position: absolute;
+	margin: 0em 0.1em 0em 0.5em;
+	left: 1%;
+	top: 0%;
+	height: 1em
+}
+
+.logo {
+	color:#fff;
+	text-transform:uppercase;
+	white-space:nowrap;
+	-webkit-font-smoothing:antialiased;
+	-webkit-user-select:none;
+	margin: 0em 0em -2em 0em
+}
+
+.logo span {
+	letter-spacing:0.5em;
+	font-size:0.75em;
+	opacity:1
+}
+
+@-webkit-keyframes flash-letter {
+	0% {opacity:0.35}
+	30%{opacity:1}
+	100%{opacity:0.21}
+}
+
+.logo .d{-webkit-animation-delay:0}
+.logo .a{-webkit-animation-delay:100ms}
+.logo .v{-webkit-animation-delay:200ms}
+.logo .i{-webkit-animation-delay:300ms}
+.logo .d2{-webkit-animation-delay:400ms}
+.logo .b{-webkit-animation-delay:500ms}
+.logo .a2{-webkit-animation-delay:600ms}
+.logo .n{-webkit-animation-delay:700ms}
+.logo .w{-webkit-animation-delay:800ms}
+.logo .e{-webkit-animation-delay:900ms}
+.logo .l{-webkit-animation-delay:1000ms}
+.logo .l2{-webkit-animation-delay:1100ms}
+.logo .h{-webkit-animation-delay:1200ms}
+.logo .c{-webkit-animation-delay:1300ms}
+.logo .l3{-webkit-animation-delay:1400ms}
+.logo .o{-webkit-animation-delay:1500ms}
+.logo .d3{-webkit-animation-delay:1600ms}
+.logo .e2{-webkit-animation-delay:1700ms}

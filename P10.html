@@ -1,0 +1,143 @@
+
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>
+      Fetch Power of 10 test.
+    </title>
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+    <div id="visualization" style="width: 500px; height: 400px;"></div>
+	 	 
+	<script type="text/javascript">
+	
+		var EVENT = '800';
+		var RESULTS = [];
+	 
+		// YQL serves JSONP (with a callback) so all we have to do
+		// is create a script element with the right 'src':
+		function YQLQuery(query, callback) {
+			this.query = query;
+			this.callback = callback || function(){};
+			this.fetch = function() {
+	 
+				if (!this.query || !this.callback) {
+					throw new Error('YQLQuery.fetch(): Parameters may be undefined');
+				}
+	 
+				var scriptEl = document.createElement('script'),
+					uid = 'yql' + +new Date(),
+					encodedQuery = encodeURIComponent(this.query.toLowerCase()),
+					instance = this;
+	 
+				YQLQuery[uid] = function(json) {
+					instance.callback(json);
+					delete YQLQuery[uid];
+					document.body.removeChild(scriptEl);
+				};
+	 
+				scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q='
+								+ encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
+				document.body.appendChild(scriptEl);
+	 
+			};
+		}
+	 
+		// Alert the latest post title from Ajaxian.com
+ 
+		// Construct your query:
+		var query = "select * from html where url='thepowerof10.info/athletes/profile.aspx?athleteid=78185' limit 1";
+ 
+		// Define your callback:
+		var callback = function(data) {
+			var post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr;
+			var numPerfs = Object.keys(post).length
+			
+			for (i = 0; i < numPerfs; i++) { 
+				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr[i];
+				if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
+					continue;
+				}
+				else {
+					if(post.td[0].p == '800') {
+						var performance = {
+							time:post.td[1].p,
+							date:post.td[11].p,
+							location:post.td[9].a.content,
+						};
+						RESULTS[RESULTS.length] = performance;
+					}
+				}
+			}
+			alert(RESULTS[0].date);
+		};
+ 
+		// Instantiate with the query:
+		var ajaxianPosts = new YQLQuery(query, callback);
+ 
+		// If you're ready then go:
+		ajaxianPosts.fetch(); // Go!!
+ 
+		/* Callback & query can be defined as properties also:
+			ajaxianPosts.query = 'select * from...';
+			ajaxianPosts.callback = function(){}; */
+			
+			
+		function hours(time) {
+			if(time.match(/:/g) < 2) {
+				return 0;
+			}
+			else {
+				return time.substr(0, time.indexOf(':'));
+			}
+		}
+		
+		function minutes(time) {
+			var match = time.match(/:/g);
+			if(match == 1) {
+				return time.substr(0, time.indexOf(':'));
+			}
+			else if(match == 2) {
+				return time.substr(time.indexOf(':')+1, time.indexOf(':')+1);
+			}
+			else {
+				return 0;
+			}
+		}
+		
+		function seconds(time) {
+			var match = time.match(/:/g);
+			if(match == 0) {
+				return time.substr(0, time.indexOf('.'));
+			}
+			else if(match == 1) {
+				if(time.match(/./g) == 0) {
+					return time.substr(time.indexOf(':')+1, time.length);
+				}
+				else {
+					return time.substr(time.indexOf(':')+1, time.indexOf('.')-2);
+				}
+			}
+			else {
+				return time.substr(time.indexOf(':')+1, time.length);
+			}
+		}
+		
+		function milliseconds(time) {
+			if(time.match(/./g) == 0) {
+				return 0;
+			}
+			else {
+				return time.substr(time.indexOf('.')+1,time.length);
+			}
+		}
+			
+    </script>
+  </body>
+</html>

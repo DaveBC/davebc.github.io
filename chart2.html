@@ -1,0 +1,360 @@
+
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>
+      Power of 10 Grapher
+    </title>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+	 <script type="text/javascript">
+	 
+		var RESULTS = [];
+		var EVENT = '800';
+		var START = 2009;
+		var END = 2014;
+		var RANGE = 5;
+		var minTime = [99,99,99,999];
+		var tableData;
+ 
+		// Construct your query:
+		var query = "select * from html where url='thepowerof10.info/athletes/profile.aspx?athleteid=78185' limit 1";
+ 
+		// Define your callback:
+		var callback = function(data) {
+			var post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr;
+			var numPerfs = Object.keys(post).length;
+			var loopCounter = 0;
+			for (i = 0; i < numPerfs; i++) { 
+				loopCounter++;
+				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr[i];
+				if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
+					continue;
+				}
+				else {
+					if(post.td[1].p == 'DQ') {
+						continue;
+					}
+					if(post.td[1].p == 'DNF') {
+						continue;
+					}
+					if(post.td[0].p == EVENT) {
+						var performance = {
+							time:post.td[1].p,
+							date:post.td[11].p,
+							location:post.td[9].a.content,
+						};
+						RESULTS[RESULTS.length] = performance;
+					}
+				}
+				if(loopCounter == numPerfs-2) {
+					drawVisualization();
+				}
+			}
+		};
+ 
+		// Instantiate with the query:
+		var ajaxianPosts = new YQLQuery(query, callback);
+ 
+		// If you're ready then go:
+		google.setOnLoadCallback(ajaxianPosts.fetch()); // Go!!
+ 
+		/* Callback & query can be defined as properties also:
+			ajaxianPosts.query = 'select * from...';
+			ajaxianPosts.callback = function(){}; */
+			
+      function drawVisualization() {
+        // Create and populate the data table.
+        tableData = new google.visualization.DataTable();
+
+        tableData.addColumn('date', 'Date');
+        tableData.addColumn('timeofday', END);
+		  tableData.addColumn({type:'string', role:'tooltip', 'p': {'html': true}});
+		  
+		  for(j = 1; j < RANGE; j++) {
+				tableData.addColumn('timeofday', END-j);
+				tableData.addColumn({type:'string', role:'tooltip', 'p': {'html': true}});
+			}
+        
+		  
+		  for(i = 0; i < RESULTS.length; i++) {
+				var resDate = new Date(RESULTS[i].date);
+				switch(RANGE) {
+					case 1 : // Do Stuff.
+								break;
+					case 2 : // Do Stuff.
+								break;
+					case 3 : // Do Stuff.
+								break;
+					case 4 : // Do Stuff.
+								break;
+					case 5 : var timeHour = parseInt(hours(RESULTS[i].time));
+								var timeMinute = parseInt(minutes(RESULTS[i].time));
+								var timeSecond = parseInt(seconds(RESULTS[i].time));
+								var timeMilSecond = parseInt(milliseconds(RESULTS[i].time));
+								if(resDate.getFullYear()-END == 0) {
+									tableData.addRows([
+									[new Date(0,resDate.getMonth(),resDate.getDate(),0,0,0,0), 
+									[timeHour,
+									timeMinute,
+									timeSecond,
+									timeMilSecond],
+									createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location),
+									null, null, null, null, null, null, null, null]
+									]);
+								}
+								if(resDate.getFullYear()-END == -1) {
+									tableData.addRows([
+									[new Date(0,resDate.getMonth(),resDate.getDate(),0,0,0,0), 
+									null, null,
+									[timeHour,
+									timeMinute,
+									timeSecond,
+									timeMilSecond],
+									createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location),
+									null, null, null, null, null, null]
+									]);
+								}
+								if(resDate.getFullYear()-END == -2) {
+									tableData.addRows([
+									[new Date(0,resDate.getMonth(),resDate.getDate(),0,0,0,0), 
+									null, null, null, null,
+									[timeHour,
+									timeMinute,
+									timeSecond,
+									timeMilSecond],
+									createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location),
+									null, null, null, null]
+									]);
+								}
+								if(resDate.getFullYear()-END == -3) {
+									tableData.addRows([
+									[new Date(0,resDate.getMonth(),resDate.getDate(),0,0,0,0), 
+									null, null, null, null, null, null,
+									[timeHour,
+									timeMinute,
+									timeSecond,
+									timeMilSecond],
+									createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location),
+									null, null]
+									]);
+								}
+								if(resDate.getFullYear()-END == -4) {
+									tableData.addRows([
+									[new Date(0,resDate.getMonth(),resDate.getDate(),0,0,0,0), 
+									null, null, null, null, null, null, null, null,
+									[timeHour,
+									timeMinute,
+									timeSecond,
+									timeMilSecond],
+									createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location)]
+									]);
+								}
+								if(minTime[0] > timeHour) {
+										minTime = [timeHour, timeMinute, timeSecond, timeMilSecond];
+									}
+								else if(minTime[0] < timeHour) {
+									break;
+								}
+								else {
+									if(minTime[1] > timeMinute) {
+											minTime = [timeHour, timeMinute, timeSecond, timeMilSecond];;
+									}
+									else if(minTime[1] < timeMinute) {
+										break;
+									}
+									else {
+										if(minTime[2] > timeSecond) {
+											minTime = [timeHour, timeMinute, timeSecond, timeMilSecond];
+										}
+										else if(minTime[2] < timeSecond) {
+											break;
+										}
+										else {
+											if(minTime[3] > timeMilSecond) {
+												minTime = [timeHour, timeMinute, timeSecond, timeMilSecond];
+											}
+											else {
+												break;
+											}
+										}
+									}
+								}
+								break;
+				}
+							
+				/*tableData.addRows([
+					[new Date(RESULTS[i].date), [parseInt(hours(RESULTS[i].time)),parseInt(minutes(RESULTS[i].time)),parseInt(seconds(RESULTS[i].time)),parseInt(milliseconds(RESULTS[i].time))], createCustomHTMLContent(RESULTS[i].date, RESULTS[i].time, RESULTS[i].location)]
+				]);*/
+				if (i == RESULTS.length-1) {
+					tableData.sort([{column: 0, desc:true}]);
+					drawVisual();
+				}
+		  }
+      }
+		
+		function drawVisual() {
+			var options = {
+				curveType: "line",
+				width: 1500, 
+				height: 1000,
+				vAxis: {gridlines: {count: 20}, format: 'HH:mm:ss.SS', minValue: [minTime[0],minTime[1],minTime[2]-1,minTime[3]]},
+				hAxis: {format: 'MMMM', gridlines: {count: 12}},
+				legend: {position: 'right'},
+				tooltip: {isHtml: true},
+				animation : {duration : 5000},
+				interpolateNulls: true,
+				pointSize: 5,
+				title: 'David BANWELL-CLODE - ' + EVENT + 'm Progression (' + START + ' - ' + END + ')'
+			};
+					
+			// Create and draw the visualization.
+			new google.visualization.LineChart(document.getElementById('visualization')).
+				draw(tableData, options);
+		}
+      
+      // Generate HTML
+      function createCustomHTMLContent(date, time, location) {
+        return '<div style="padding:5px 5px 5px 5px;">' +
+            '<table id="info_layout">' + '<tr>' +
+            '<td><b>' + date + '</b></td>' + '</tr>' + '<tr>' +
+          '<td>Time: <b>' + time + '</b></td>' + '</tr>' + '<tr>' +
+          '<td>Location: <b>' + location + '</b></td>' + '</tr>' + '</table>' + '</div>';
+      }
+	  
+		// Parse PowerOf10
+	 
+		// YQL serves JSONP (with a callback) so all we have to do
+		// is create a script element with the right 'src':
+		function YQLQuery(query, callback) {
+			this.query = query;
+			this.callback = callback || function(){};
+			this.fetch = function() {
+	 
+				if (!this.query || !this.callback) {
+					throw new Error('YQLQuery.fetch(): Parameters may be undefined');
+				}
+	 
+				var scriptEl = document.createElement('script'),
+					uid = 'yql' + +new Date(),
+					encodedQuery = encodeURIComponent(this.query.toLowerCase()),
+					instance = this;
+	 
+				YQLQuery[uid] = function(json) {
+					instance.callback(json);
+					delete YQLQuery[uid];
+					document.head.removeChild(scriptEl);
+				};
+	 
+				scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q='
+								+ encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
+				document.head.appendChild(scriptEl);
+	 
+			};
+		}	
+			
+		function hours(time) {
+			var patt = new RegExp(":");
+			if(patt.test(time)) {
+				if(time.match(/:/g).length < 2) {
+					return 0;
+				}
+				else {
+					return time.substr(0, time.indexOf(':'));
+				}
+			}
+			else {
+				return 0;
+			}
+		}
+		
+		function minutes(time) {
+			var patt = new RegExp(":");
+			var match = 0;
+			if(patt.test(time)) {
+				match = time.match(/:/g).length;
+			}
+			
+			if(match == 1) {
+				return time.substr(0, time.indexOf(':'));
+			}
+			else if(match == 2) {
+				return time.substr(time.indexOf(':')+1, time.indexOf(':')+1);
+			}
+			else {
+				return 0;
+			}
+		}
+		
+		function seconds(time) {
+			var patt = new RegExp(":");
+			var match = 0;
+			if(patt.test(time)) {
+				match = time.match(/:/g).length;
+			}
+
+			if(match == 0) {
+				var matchB = 0;
+				patt = /\./g;
+				if(patt.test(time)) {
+					return time.substr(0, time.indexOf('.'));
+				}
+				else {
+					return 0;
+				}
+			}
+			else if(match == 1) {
+				patt = new RegExp(".");
+				var matchB = 0;
+				if(patt.test(time)) {
+					matchB = time.match(/./g).length;
+				}
+				
+				if(matchB == 0) {
+					return time.substr(time.indexOf(':')+1, time.length);
+				}
+				else {
+					return time.substr(time.indexOf(':')+1, time.indexOf('.')-2);
+				}
+			}
+			else {
+				return time.substr(time.indexOf(':')+1, time.length);
+			}
+		}
+		
+		function milliseconds(time) {
+			var patt = new RegExp(":");
+			var match = 0;
+			if(patt.test(time)) {
+				match = time.match(/./g);
+			}
+			
+			if(match == 0) {
+				return 0;
+			}
+			else {
+				var mil = time.substr(time.indexOf('.')+1,time.length);
+				if(mil.length == 1) {
+					return mil.concat("00");
+				}
+				else {
+					return mil.concat("0");
+				}
+			}
+		}
+
+      //google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+    <div id="visualization" style="width: 500px; height: 400px;"></div>
+  </body>
+</html>
