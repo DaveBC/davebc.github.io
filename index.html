@@ -1,15 +1,11 @@
-
-<!--
-You are free to copy and use this sample in accordance with the terms of the
-Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
--->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Progression Chart Generator</title>
 	 <link rel="stylesheet" type="text/css" href="style.css">
+     <link rel="stylesheet" type="text/css" href="overlay.css" />
+     
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript">
@@ -20,10 +16,11 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 		  $('#loader').hide();
 	});
 	</script>
-    <script type="text/javascript" src="formValidation.js"></script>
-	<script type="text/javascript" src="allTime.js"></script>
-    <script type="text/javascript" src="yearRange.js"></script>
-    <script type="text/javascript" src="time.js"></script>
+    <script type="text/javascript" src="./js/formValidation.js"></script>
+	<script type="text/javascript" src="./js/allTime.js"></script>
+    <script type="text/javascript" src="./js/yearRange.js"></script>
+    <script type="text/javascript" src="./js/time.js"></script>
+    <script type="text/javascript" src="./js/modernizr.custom.js"></script>
   
   <link rel="icon" type="image/png" href="./images/icon_16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="./images/icon_48.png" sizes="48x48">
@@ -54,6 +51,9 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 					<span class="e2">E</span>
 				</h2>
 		</div>
+ 		<div class="linkContainer">
+        	<span><a href="http://www.thepowerof10.info/" target="_blank">thepowerof10.info</a></span>
+        </div>
 		<div class="headContainer">
             <header>
 					<h1 class="topHead">
@@ -122,14 +122,33 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
                         </select>
                         <a id="seasonText">Seasons best only:</a><input id="SB" type="checkbox" value="sb"/>
                         <input id="clickMe" type="button" value="Go!" onclick="generateAllTime()" />
-                        <img id="loader" src="loader.gif"/>
+                        <img id="loader" src="./images/loader.gif"/>
                 	</span>
                 </h2>
 
             </form>
          </div>   
-		<div class="visual" id="visualization"><div id="errorMSG" class="errorMessage"><span id="errorMessageText"></span><span id="errorLink"></span></div></div>
-        <div class="userInput">
+		<div class="visual" id="visualization"></div>
+        <div id="errorMSG" class="errorMessage"><span id="errorMessageText"></span><span id="errorLink"></span></div>
+        <div class="helpContainer">
+            <span><a id="trigger-overlay" class"trigger">Show Help</a></span>
         </div>
+        
+        <!-- open/close -->
+		<div class="overlay overlay-scale">
+			<button type="button" class="overlay-close">Close</button>
+			<div class="help">
+            <nav>
+				<ul>
+					<li><b>To find your Power of 10 ID:</b></li>
+					<li>1. Visit your profile page.</li>
+					<li>2. Your ID will be the numbers at the end of the page URL.
+                    	<br/> (http://www.thepowerof10.info/athletes/profile.aspx?athleteid=<b class="number">12345</b>)</li>
+				</ul>
+			</nav>
+            </div>
+		</div>
+        	<script type="text/javascript" src="./js/classie.js"></script>
+            <script type="text/javascript" src="./js/overlay.js"></script>
   </body>
 </html>
