@@ -223,6 +223,6 @@
 			else {
 				cType = "line";
 			}
-			var ajaxianPosts = new YQLQuery(query, callback);
-			google.setOnLoadCallback(ajaxianPosts.fetch());
+			var allTime = new YQLQuery(query, callback);
+			google.setOnLoadCallback(allTime.fetch());
 		}		
