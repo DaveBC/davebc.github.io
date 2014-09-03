@@ -154,6 +154,11 @@
 				animation : {duration : 5000,
 									easing: 'out'},
 				title: AT_ATHLETE_NAME + ' - ' + AT_EVENT + 'm Progression (All Time)',
+				chartArea: {
+					left: 100,
+					width: $('#visualization').width()*0.875,
+					height: $('#visualization').height()*0.8,
+				},
 			};
 		
 			// Create and draw the visualization.
