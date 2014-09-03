@@ -8,7 +8,7 @@ body {
   font-size:100%;
   font-family:"Libre Baskerville",serif;
   font-weight:400;
-  height:99%;
+  height:97%;
 }
 
 button { 
@@ -137,7 +137,7 @@ a {
 }
 
 .headContainer {
-	margin:-3em 0 -1em 0;
+	margin:-2.4em 0 -1em 0;
 	padding:0 20px;
 	text-align:center
 }
@@ -164,7 +164,7 @@ a {
 
 .name {
 	position: absolute;
-	margin: 0em 0.1em 0em 0.5em;
+	margin: -0.3em 0.1em 0em 0.5em;
 	left: 1%;
 	top: 0%;
 	height: 1em
@@ -176,7 +176,7 @@ a {
 	white-space:nowrap;
 	-webkit-font-smoothing:antialiased;
 	-webkit-user-select:none;
-	margin: 0em 0em -2em 0em
+	margin: 0em 0em -2em 0em;
 }
 
 .logo span {
