@@ -222,6 +222,6 @@
 			else {
 				cType = "line";
 			}
-			var allTime = new YQLQuery(query, callback);
-			google.setOnLoadCallback(allTime.fetch());
+			var allTimeData = new YQLQuery(query, callback);
+			google.setOnLoadCallback(allTimeData.fetch());
 		}		
