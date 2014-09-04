@@ -585,7 +585,12 @@
 				animation : {duration : 5000},
 				interpolateNulls: true,
 				pointSize: 2,
-				title: YR_ATHLETE_NAME + ' - ' + YR_EVENT + 'm Progression (' + START + ' - ' + END + ')'
+				title: YR_ATHLETE_NAME + ' - ' + YR_EVENT + 'm Progression (' + START + ' - ' + END + ')',
+				chartArea: {
+					left: 100,
+					width: $('#visualization').width()*0.8125,
+					height: $('#visualization').height()*0.8,
+				},
 			};
 			
 			// Create and draw the visualization.		

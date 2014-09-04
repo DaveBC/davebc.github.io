@@ -14,7 +14,6 @@
 		// Define your callback:
 		var callback = function(data) {
 			var divNum = 0;
-			//var post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[3].table[1].tr;
 			if(data.query.results == null) {
 				if(AT_Retry == 3) {
 					$('#errorMessageText').text("ERROR: No results received... can you view ");
