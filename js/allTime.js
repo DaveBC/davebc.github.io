@@ -27,9 +27,7 @@ var callback = function(data) {
 			$('#errorMessageText').text("ERROR: No results received... can you view ");
 			$('#errorLink').text('your profile?');
 			var plink = "";
-			plink = plink.concat('<a target="_blank" href="http://www.thepowerof10.info/athletes/profile.aspx?athleteid=',
-									AT_PROFILE,
-									'"/>');
+			plink = plink.concat('<a target="_blank" href="thepowerof10.info/athletes/profile.aspx?athleteid=',AT_PROFILE,'"/>');
 			$('#errorLink').wrap(plink);
 			$('#loader').hide();
 			AT_Retry = 0;
@@ -215,11 +213,10 @@ function YQLQuery(query, callback) {
 			document.head.removeChild(scriptEl);
 		};
 	 
-		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q='
-						+ encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
-						document.head.appendChild(scriptEl);
-	 };
-}	
+		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
+		document.head.appendChild(scriptEl);
+	};
+};	
 	  
 function generateAllTime() {
 	$('#loader').show();
@@ -238,4 +235,4 @@ function generateAllTime() {
 	}
 	var allTimeData = new YQLQuery(query, callback);
 	google.setOnLoadCallback(allTimeData.fetch());
-}		
+};
