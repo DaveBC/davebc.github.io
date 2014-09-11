@@ -1,4 +1,11 @@
-// JavaScript Document
+//
+//  formValidation.js
+//  Power Of 10 Progression Chart Generator
+//
+//  Created by David Banwell-Clode on 28/07/2014.
+//  Copyright (c) 2014 David Banwell-Clode. All rights reserved.
+//
+
 $(document).ready(function () {
 	$('#clickMe').attr('disabled', true);	
 	if($('#period').val() == "AT") {

@@ -1,3 +1,13 @@
+//
+//  time.js
+//  Power Of 10 Progression Chart Generator
+//
+//  Created by David Banwell-Clode on 31/07/2014.
+//  Copyright (c) 2014 David Banwell-Clode. All rights reserved.
+//
+
+
+// Calculate hours using regex. More often than not this will be 0.
 function hours(time) {
 	var patt = new RegExp(":");
 	if(patt.test(time)) {
@@ -12,7 +22,8 @@ function hours(time) {
 		return 0;
 	}
 }
-	
+
+// Calculate minutes using regex.	
 function minutes(time) {
 	var patt = new RegExp(":");
 	var match = 0;
@@ -29,7 +40,8 @@ function minutes(time) {
 		return 0;
 	}
 }
-		
+
+// Calculate seconds using regex.		
 function seconds(time) {
 	var patt = new RegExp(":");
 	var match = 0;
@@ -63,7 +75,8 @@ function seconds(time) {
 		return time.substr(time.indexOf(':')+1, time.length);
 	}
 }
-		
+
+// Calculate milliseconds using regex.		
 function milliseconds(time) {
 	var patt = new RegExp(":");
 	var match = 0;
