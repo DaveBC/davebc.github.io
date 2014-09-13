@@ -69,10 +69,11 @@ var callback = function(data) {
 				break;
 			}
 		}
-		
+
 		var numPerfs = Object.keys(post).length;
 		var loopCounter = 0;
 		var currentYear = 2014;
+		var mostRecentPerf = 1;
 		
 		for (i = 0; i < numPerfs; i++) { 
 			loopCounter++;
@@ -90,25 +91,45 @@ var callback = function(data) {
 				}
 				if(post.td[0].p == AT_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
+						var reg = /\-/g;
+						var perfDate = post.td[11].p;
+						if(reg.test(perfDate)) {
+							var string = perfDate;
+							perfDate = string.substring(string.indexOf('-')+1,string.length);
+						} 
 						performance = {
 							time:post.td[1].p,
-							date:post.td[11].p,
+							date:perfDate,
 							location:post.td[9].a.content,
 						};
 					} 
 					else {
+						var reg = /\-/g;
+						var perfDate = post.td[11].p;
+						if(reg.test(perfDate)) {
+							var string = perfDate;
+							perfDate = string.substring(string.indexOf('-')+1,string.length);
+						} 
 						performance = {
 							time:post.td[1].p,
-							date:post.td[11].p,
+							date:perfDate,
 							location:post.td[9].p,
 						};
 					}
 					if(SB) {
 						var resDate = new Date(performance.date);
+						if(Boolean(mostRecentPerf)) {
+							mostRecentPerf = 0;
+							currentYear = resDate.getFullYear();
+						}
 						if(resDate.getFullYear() == currentYear) {
 							AT_RESULTS[AT_RESULTS.length] = performance;
 							currentYear--;
 						}
+						else if(resDate.getFullYear() < currentYear) {
+							AT_RESULTS[AT_RESULTS.length] = performance;
+							currentYear = resDate.getFullYear()-1;
+						}	
 					}
 					else {
 						AT_RESULTS[AT_RESULTS.length] = performance;
@@ -133,15 +154,18 @@ function drawVisualization() {
 	AT_tableData.addColumn({type:'string', role:'tooltip', 'p': {'html': true}});
 		  
 	if(AT_RESULTS.length == 0) {
+		console.log("No results found.");
 		drawVisual();
 	}
 	
 	for(i = 0; i < AT_RESULTS.length; i++) {
+		// The following may have been made redundant by doing this check above.
 		var reg = /\-/g;
 		if(reg.test(AT_RESULTS[i].date)) {
 			var string = AT_RESULTS[i].date;
 			AT_RESULTS[i].date = string.substring(string.indexOf('-')+1,string.length);
 		}  
+		// End comment.
 		AT_tableData.addRows([
 			[new Date(AT_RESULTS[i].date), 
 			[parseInt(hours(AT_RESULTS[i].time)),
