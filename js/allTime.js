@@ -24,17 +24,12 @@ var callback = function(data) {
 	// No results returned. Retry 3 times and then give up.
 	if(data.query.results == null) {
 		if(AT_Retry == 3) {
-			$('#errorMessageText').text("ERROR: No results received... can you view ");
-			$('#errorLink').text('your profile?');
-			var plink = "";
-			plink = plink.concat('<a target="_blank" href="thepowerof10.info/athletes/profile.aspx?athleteid=',AT_PROFILE,'"/>');
-			$('#errorLink').wrap(plink);
 			$('#loader').hide();
 			AT_Retry = 0;
-			return;
+			displayError();
 		}
 		else {
-			$('#errorMessageText').text("ERROR: No results received... can you view ");
+			//$('#errorMessageText').text("ERROR: No results received... can you view ");
 			AT_Retry++;
 			var msg = "";
 			msg = msg.concat('ERROR: No results received... Attempting retry (',AT_Retry, ' of 3)');
@@ -195,7 +190,7 @@ function drawVisual() {
 		title: AT_ATHLETE_NAME + ' - ' + AT_EVENT + 'm Progression (All Time)',
 		chartArea: {
 			left: 100,
-			width: $('#visualization').width()*0.975,
+			width: $('#visualization').width()*0.875,
 			height: $('#visualization').height()*0.8,
 		},
 	};
@@ -240,9 +235,21 @@ function YQLQuery(query, callback) {
 		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
 		document.head.appendChild(scriptEl);
 	};
-};	
+};
+
+function displayError() {
+	var plink = "";
+	//$('#errorMessageText').text("ERROR: No results received... can you view ");
+	//$('#errorLink').text('your profile?');
+	plink = plink.concat('http://thepowerof10.info/athletes/profile.aspx?athleteid=',AT_PROFILE);
+	//$('#errorLink').wrap(plink);*/
+	$('#errorLinkA').attr("href",plink);
+	$('.errorMessage').css({"visibility":"visible"});
+}
+		
 	  
 function generateAllTime() {
+	$('.errorMessage').css({"visibility":"hidden"});
 	$('#loader').show();
 	$('#visualization').html('<div id="errorMSG" class="errorMessage"><span id="errorMessageText"></span><span id="errorLink"></span></div>');
 	AT_RESULTS = [];

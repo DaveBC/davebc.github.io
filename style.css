@@ -76,10 +76,19 @@ strong {
 }
 
 .errorMessage {
+	visibility:hidden;
 	margin:-30em 0 30em 0;
 	text-align: center;
 	font-family:"Libre Baskerville",serif;
 	color:#F00;
+}
+
+.errorMessage a {
+	margin:-30em 0 30em 0;
+	text-align: center;
+	font-family:"Libre Baskerville",serif;
+	color:#F00;
+	text-decoration:underline;
 }
 
 
