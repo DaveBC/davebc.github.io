@@ -15,6 +15,7 @@ var minTime = [99,99,99,999];
 var YR_tableData;
 var YR_ATHLETE_NAME;
 var YR_PROFILE;
+var YR_Retry = 0;
  
 // Construct query
 var YR_query = "select * from html where url='thepowerof10.info/athletes/profile.aspx?athleteid=78185' limit 1";
@@ -25,20 +26,14 @@ var YR_callback = function(data) {
 			
 	if(data.query.results == null) {
 		if(YR_Retry == 3) {
-			$('#errorMessageText').text("ERROR: No results revieved... can you view ");
-			$('#errorLink').text('your profile?');
-			var plink = "";
-			plink = plink.concat('<a target="_blank" href="thepowerof10.info/athletes/profile.aspx?athleteid=', YR_PROFILE,'"/>');
-			$('#errorLink').wrap(plink);
-			console.log(msg);
 			$('#loader').hide();
 			YR_Retry = 0;
-			return;
+			displayErrorYR();
 		}
 		else {
 			YR_Retry++;
 			var msg = "";
-			msg = msg.concat('ERROR: No results recieved... Attempting retry (',YR_Retry+1, ' of 3)');
+			msg = msg.concat('ERROR: No results recieved... Attempting retry (',YR_Retry, ' of 3)');
 			$('#errorMessageText').text(msg);
 			console.log(msg);
 			generateYearRange();
@@ -653,7 +648,16 @@ function YR_YQLQuery(query, callback) {
 	};
 };	
 
+function displayErrorYR() {
+	var plink = "";
+	plink = plink.concat('http://thepowerof10.info/athletes/profile.aspx?athleteid=',YR_PROFILE);
+	$('#errorLinkA').attr("href",plink);
+	$('.errorMessage').css({"visibility":"visible"});
+	return;
+};
+
 function generateYearRange() {
+	$('.errorMessage').css({"visibility":"hidden"});
 	$('#loader').show();
 	$('#visualization').html('<div id="errorMSG" class="errorMessage"><span id="errorMessageText"></span><span id="errorLink"></span></div>');
 	YR_RESULTS = [];

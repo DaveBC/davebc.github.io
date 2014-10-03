@@ -26,10 +26,9 @@ var callback = function(data) {
 		if(AT_Retry == 3) {
 			$('#loader').hide();
 			AT_Retry = 0;
-			displayError();
+			displayErrorAT();
 		}
 		else {
-			//$('#errorMessageText').text("ERROR: No results received... can you view ");
 			AT_Retry++;
 			var msg = "";
 			msg = msg.concat('ERROR: No results received... Attempting retry (',AT_Retry, ' of 3)');
@@ -237,15 +236,13 @@ function YQLQuery(query, callback) {
 	};
 };
 
-function displayError() {
+function displayErrorAT() {
 	var plink = "";
-	//$('#errorMessageText').text("ERROR: No results received... can you view ");
-	//$('#errorLink').text('your profile?');
 	plink = plink.concat('http://thepowerof10.info/athletes/profile.aspx?athleteid=',AT_PROFILE);
-	//$('#errorLink').wrap(plink);*/
 	$('#errorLinkA').attr("href",plink);
 	$('.errorMessage').css({"visibility":"visible"});
-}
+	return;
+};
 		
 	  
 function generateAllTime() {
