@@ -189,7 +189,7 @@ function drawVisual() {
 		title: AT_ATHLETE_NAME + ' - ' + AT_EVENT + 'm Progression (All Time)',
 		chartArea: {
 			left: 100,
-			width: $('#visualization').width()*0.875,
+			width: $('#visualization').width()*0.825,
 			height: $('#visualization').height()*0.8,
 		},
 	};
