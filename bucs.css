@@ -56,6 +56,10 @@ th {
     text-align: left;
 }
 
+td {
+	vertical-align:top;
+}
+
 div::-webkit-scrollbar
 {  
     display: none;
