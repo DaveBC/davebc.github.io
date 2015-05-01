@@ -5,6 +5,12 @@ body {
     background: url(images/warwick.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color:#414141;
+}
+
+a {
+	color:#414141;
 }
 
 div {
