@@ -24,7 +24,7 @@ div {
 	position: fixed;
 	bottom: 10%;
 	height: 80%;
-	overflow-x: hidden;
+	overflow-x: scroll;
  	overflow-y: scroll;
 }
 
