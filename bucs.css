@@ -39,7 +39,7 @@ div {
 
 p {
 	text-align: center;
-	line-height: 100px;
+	line-height: 30px;
 	color:#414141;
 	margin-bottom:10%;
 }
@@ -58,6 +58,10 @@ th {
 
 td {
 	vertical-align:top;
+}
+
+.high {
+	background-color: rgba(209, 209, 209, 0.3);
 }
 
 div::-webkit-scrollbar
