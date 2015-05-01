@@ -55,3 +55,8 @@ table {
 th {
     text-align: left;
 }
+
+div::-webkit-scrollbar
+{  
+    display: none;
+}
