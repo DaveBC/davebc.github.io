@@ -20,7 +20,7 @@ div {
 	box-shadow: 0px 0px 10px 10px rgba(209, 209, 209, 0.5);
 	border-radius: 50px 50px 50px 50px;
 	margin-left: 5px;
-    overflow: scroll;
+    overflow: hidden;
 	width: 35%;
 	position: fixed;
 	bottom: 10%;
