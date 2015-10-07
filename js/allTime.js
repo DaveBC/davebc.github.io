@@ -40,7 +40,7 @@ var callback = function(data) {
 		console.log(data.query.results);
 		var post;
 		try {
-			post = body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
 		}
 		catch (e) {
 			var errmsg = ""
