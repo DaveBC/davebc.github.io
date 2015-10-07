@@ -84,7 +84,7 @@ var callback = function(data) {
 				if(post.td[1].p == 'DNF') {
 					continue;
 				}
-				if(post.td[0].p == AT_EVENT) {
+				if(post.td[0] == AT_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var reg = /\-/g;
 						var perfDate = post.td[11].content;
