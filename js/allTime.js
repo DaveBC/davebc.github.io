@@ -97,7 +97,6 @@ var callback = function(data) {
 							date:perfDate,
 							location:post.td[9].a.content,
 						};
-						console.log(performance);
 					} 
 					else {
 						var reg = /\-/g;
@@ -132,6 +131,7 @@ var callback = function(data) {
 					}
 				}
 			}
+			console.log('Perf:' + performance);
 			if(loopCounter == numPerfs) {
 				drawVisualization();
 			}
