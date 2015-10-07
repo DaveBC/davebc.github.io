@@ -66,7 +66,6 @@ var callback = function(data) {
 		}
 
 		var numPerfs = Object.keys(post).length;
-		console.log(numPerfs);
 		var loopCounter = 0;
 		var currentYear = 2014;
 		var mostRecentPerf = 1;
@@ -98,6 +97,7 @@ var callback = function(data) {
 							date:perfDate,
 							location:post.td[9].a.content,
 						};
+						console.log(performance);
 					} 
 					else {
 						var reg = /\-/g;
