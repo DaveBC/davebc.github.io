@@ -66,6 +66,7 @@ var callback = function(data) {
 		}
 
 		var numPerfs = Object.keys(post).length;
+		console.log(numperfs);
 		var loopCounter = 0;
 		var currentYear = 2014;
 		var mostRecentPerf = 1;
@@ -87,28 +88,28 @@ var callback = function(data) {
 				if(post.td[0].p == AT_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var reg = /\-/g;
-						var perfDate = post.td[11].p;
+						var perfDate = post.td[11].content;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1].p,
+							time:post.td[1],
 							date:perfDate,
 							location:post.td[9].a.content,
 						};
 					} 
 					else {
 						var reg = /\-/g;
-						var perfDate = post.td[11].p;
+						var perfDate = post.td[11].content;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1].p,
+							time:post.td[1],
 							date:perfDate,
-							location:post.td[9].p,
+							location:post.td[9].content,
 						};
 					}
 					if(SB) {
