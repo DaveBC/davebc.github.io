@@ -88,6 +88,8 @@ var callback = function(data) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var reg = /\-/g;
 						var perfDate = post.td[11].content;
+						console.log('content: ' + perfDate);
+						console.log('p: ' + post.td[11].p);
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
