@@ -66,7 +66,7 @@ var callback = function(data) {
 		}
 
 		var numPerfs = Object.keys(post).length;
-		console.log(numperfs);
+		console.log(numPerfs);
 		var loopCounter = 0;
 		var currentYear = 2014;
 		var mostRecentPerf = 1;
