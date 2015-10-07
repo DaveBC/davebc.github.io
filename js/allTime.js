@@ -231,8 +231,8 @@ function YQLQuery(query, callback) {
 			document.head.removeChild(scriptEl);
 		};
 	 
-		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid;
-		console.log('http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid);
+		scriptEl.src = 'https://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=YQLQuery.' + uid;
+		console.log(scriptEl.src);
 		document.head.appendChild(scriptEl);
 	};
 };
@@ -254,7 +254,7 @@ function generateAllTime() {
 	AT_EVENT = $('#eventPicker').val();
 	AT_ATHLETE_NAME ='';
 	AT_PROFILE = $('#p10ID').val();
-	query =  "select * from html where url='thepowerof10.info/athletes/profile.aspx?athleteid=" + AT_PROFILE + "' limit 1";
+	query =  "select * from html where url='www.thepowerof10.info/athletes/profile.aspx?athleteid=" + AT_PROFILE + "' limit 1";
 	SB = document.getElementById('SB').checked;
 	if(SB) {
 		cType = "function";
