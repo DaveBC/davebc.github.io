@@ -231,7 +231,8 @@ function YQLQuery(query, callback) {
 			document.head.removeChild(scriptEl);
 		};
 	 
-		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid; 
+		scriptEl.src = 'http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid;
+		console.log('http://query.yahooapis.com/v1/public/yql?q=' + encodedQuery + '&format=json&callback=YQLQuery.' + uid);
 		document.head.appendChild(scriptEl);
 	};
 };
