@@ -40,7 +40,7 @@ var callback = function(data) {
 		console.log(data.query.results);
 		var post;
 		try {
-			post = data.query.results.body.form.div[2].table.tbody.tr.td.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
+			post = body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
 		}
 		catch (e) {
 			var errmsg = ""
@@ -52,7 +52,7 @@ var callback = function(data) {
 			return;
 		}
 		
-		AT_ATHLETE_NAME = data.query.results.body.form.div[2].table.tbody.tr.td.div[1].div.table.tbody.tr.td[0].table[0].tbody.tr.td[0].h2;
+		AT_ATHLETE_NAME = data.query.results.body.form.div[1].table.tbody.tr.td.div[1].div.table.tbody.tr.td[0].table[0].tbody.tr.td[0].h2;
 		var firstName = AT_ATHLETE_NAME.substring(0,AT_ATHLETE_NAME.indexOf(' '));
 		var secondName = AT_ATHLETE_NAME.substring(AT_ATHLETE_NAME.indexOf(' '),AT_ATHLETE_NAME.length).toUpperCase();
 		AT_ATHLETE_NAME = firstName + secondName;
