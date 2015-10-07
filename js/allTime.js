@@ -37,6 +37,7 @@ var callback = function(data) {
 		}
 	}
 	else {
+		console.log(data.query.results);
 		var post;
 		try {
 			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
