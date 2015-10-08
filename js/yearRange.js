@@ -42,7 +42,7 @@ var YR_callback = function(data) {
 	else {
 		var post;
 		try {
-			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
 		}
 		catch (e) {
 			var errmsg = ""
@@ -54,7 +54,7 @@ var YR_callback = function(data) {
 			return;
 		}
 		
-		YR_ATHLETE_NAME = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[0].tr.td[0].h2;
+		YR_ATHLETE_NAME = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[0].tbody.tr.td[0].h2;
 		var firstName = YR_ATHLETE_NAME.substring(0,YR_ATHLETE_NAME.indexOf(' '));
 		var secondName = YR_ATHLETE_NAME.substring(YR_ATHLETE_NAME.indexOf(' '),YR_ATHLETE_NAME.length).toUpperCase();
 		YR_ATHLETE_NAME = firstName + secondName;
@@ -62,7 +62,7 @@ var YR_callback = function(data) {
 		for(k = 0; k <Object.keys(post).length; k++) {
 			if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
 				divNum = k;
-				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[k].table[1].tr;
+				post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr;
 				break;
 			}
 		}
@@ -72,7 +72,7 @@ var YR_callback = function(data) {
 			
 		for (i = 0; i < numPerfs; i++) { 
 			loopCounter++;
-			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[divNum].table[1].tr[i];
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr[i];
 			if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
 				continue;
 			}
