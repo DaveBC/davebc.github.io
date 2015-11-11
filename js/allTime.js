@@ -40,7 +40,7 @@ var callback = function(data) {
 		console.log(data.query.results);
 		var post;
 		try {
-			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
+			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
 		}
 		catch (e) {
 			var errmsg = ""
@@ -52,7 +52,7 @@ var callback = function(data) {
 			return;
 		}
 		
-		AT_ATHLETE_NAME = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[0].tbody.tr.td[0].h2;
+		AT_ATHLETE_NAME = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[0].tr.td[0].h2;
 		var firstName = AT_ATHLETE_NAME.substring(0,AT_ATHLETE_NAME.indexOf(' '));
 		var secondName = AT_ATHLETE_NAME.substring(AT_ATHLETE_NAME.indexOf(' '),AT_ATHLETE_NAME.length).toUpperCase();
 		AT_ATHLETE_NAME = firstName + secondName;
@@ -60,7 +60,7 @@ var callback = function(data) {
 		for(k = 0; k <Object.keys(post).length; k++) {
 			if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
 				divNum = k;
-				post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr;
+				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[k].table[1].tr;
 				break;
 			}
 		}
@@ -73,7 +73,7 @@ var callback = function(data) {
 		for (i = 0; i < numPerfs; i++) { 
 			loopCounter++;
 			var performance;
-			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr[i];
+			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[divNum].table[1].tr[i];
 			if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
 				continue;
 			}
@@ -84,33 +84,31 @@ var callback = function(data) {
 				if(post.td[1].p == 'DNF') {
 					continue;
 				}
-				if(post.td[0] == AT_EVENT) {
+				if(post.td[0].p == AT_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var reg = /\-/g;
-						var perfDate = post.td[11].content;
-						console.log('content: ' + perfDate);
-						console.log('p: ' + post.td[11].p);
+						var perfDate = post.td[11].p;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1],
+							time:post.td[1].p,
 							date:perfDate,
 							location:post.td[9].a.content,
 						};
 					} 
 					else {
 						var reg = /\-/g;
-						var perfDate = post.td[11].content;
+						var perfDate = post.td[11].p;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1],
+							time:post.td[1].p,
 							date:perfDate,
-							location:post.td[9].content,
+							location:post.td[9].p,
 						};
 					}
 					if(SB) {
@@ -133,7 +131,6 @@ var callback = function(data) {
 					}
 				}
 			}
-			console.log('Perf:' + performance);
 			if(loopCounter == numPerfs) {
 				drawVisualization();
 			}
