@@ -9,7 +9,7 @@
 var YR_RESULTS = [];
 var YR_EVENT = '800';
 var START = 2009;
-var END = 2014;
+var END = 2016;
 var RANGE = 5;
 var minTime = [99,99,99,999];
 var YR_tableData;
@@ -48,6 +48,7 @@ var YR_callback = function(data) {
 			var errmsg = ""
 			errmsg = errmsg.concat("ERROR: Profile with ID ", YR_PROFILE, " not found!");
 			$('#errorMessageText').text(errmsg);
+			displayErrorYR();
 			console.log(errmsg);
 			console.log(e);
 			$('#loader').hide();
@@ -60,7 +61,7 @@ var YR_callback = function(data) {
 		YR_ATHLETE_NAME = firstName + secondName;
 		
 		for(k = 0; k <Object.keys(post).length; k++) {
-			if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
+			if(post[k].id == 'cphBody_pnlPerformances') {
 				divNum = k;
 				post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr;
 				break;
@@ -69,33 +70,35 @@ var YR_callback = function(data) {
 			
 		var numPerfs = Object.keys(post).length;
 		var loopCounter = 0;
+		
+		console.log(numPerfs + " performances found.");
 			
 		for (i = 0; i < numPerfs; i++) { 
 			loopCounter++;
-			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr[i];
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[divNum].table[1].tbody.tr[i];
 			if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
 				continue;
 			}
 			else {
-				if(post.td[1].p == 'DQ') {
+				if(post.td[1] == 'DQ') {
 					continue;
 				}
-				if(post.td[1].p == 'DNF') {
+				if(post.td[1] == 'DNF') {
 					continue;
 				}
-				if(post.td[0].p == YR_EVENT) {
+				if(post.td[0] == YR_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var performance = {
-							time:post.td[1].p,
-							date:post.td[11].p,
+							time:post.td[1],
+							date:post.td[11].content,
 							location:post.td[9].a.content,
 						};
 					} 
 					else {
 						var performance = {
-							time:post.td[1].p,
-							date:post.td[11].p,
-							location:post.td[9].p,
+							time:post.td[1],
+							date:post.td[11].content,
+							location:post.td[9],
 						};
 					}
 					YR_RESULTS[YR_RESULTS.length] = performance;
@@ -594,16 +597,19 @@ function YR_drawVisual() {
 		vAxis: {gridlines: {count: 20}, format: 'HH:mm:ss.SS', minValue: [minTime[0],minTime[1],minTime[2]-1,minTime[3]]},
 		hAxis: {format: 'MMMM', gridlines: {count: 12}},
 		legend: {position: 'right'},
+		series: {0: { color: '#44546a' }, 1: { color: '#dbacab' }, 2: { color: '#e5ddc6' }, 3: { color: '#b6c7bb' }, 4: { color: '#9e9aae' },5: { color : '#f4dcd7' }},
 		tooltip: {isHtml: true},
 		animation : {duration : 5000},
 		interpolateNulls: true,
 		pointSize: 2,
 		title: YR_ATHLETE_NAME + ' - ' + YR_EVENT + 'm Progression (' + START + ' - ' + END + ')',
+		titleTextStyle: {color: '#44546a'},
 		chartArea: {
 			left: 100,
 			width: $('#visualization').width()*0.8125,
 			height: $('#visualization').height()*0.8,
 		},
+		backgroundColor: 'transparent',
 	};
 			
 	// Create and draw the visualization with the specified data and options.	

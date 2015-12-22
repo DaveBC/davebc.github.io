@@ -40,75 +40,78 @@ var callback = function(data) {
 		console.log(data.query.results);
 		var post;
 		try {
-			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div;
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div;
 		}
 		catch (e) {
 			var errmsg = ""
 			errmsg = errmsg.concat("ERROR: Profile with ID ", AT_PROFILE, " not found!");
 			$('#errorMessageText').text(errmsg);
+			displayErrorAT();
 			console.log(errmsg);
 			console.log(e);
 			$('#loader').hide();
 			return;
 		}
 		
-		AT_ATHLETE_NAME = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[0].tr.td[0].h2;
+		AT_ATHLETE_NAME = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[0].tbody.tr.td[0].h2;
 		var firstName = AT_ATHLETE_NAME.substring(0,AT_ATHLETE_NAME.indexOf(' '));
 		var secondName = AT_ATHLETE_NAME.substring(AT_ATHLETE_NAME.indexOf(' '),AT_ATHLETE_NAME.length).toUpperCase();
 		AT_ATHLETE_NAME = firstName + secondName;
 		
 		for(k = 0; k <Object.keys(post).length; k++) {
-			if(post[k].id == 'ctl00_cphBody_pnlPerformances') {
+			if(post[k].id == 'cphBody_pnlPerformances') {
 				divNum = k;
-				post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[k].table[1].tr;
+				post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[k].table[1].tbody.tr;
 				break;
 			}
 		}
 
 		var numPerfs = Object.keys(post).length;
 		var loopCounter = 0;
-		var currentYear = 2014;
+		var currentYear = 2015;
 		var mostRecentPerf = 1;
+		
+		console.log(numPerfs + " performances found.");
 		
 		for (i = 0; i < numPerfs; i++) { 
 			loopCounter++;
 			var performance;
-			post = data.query.results.body.form.div.table.tr.td.div.div.div[1].div.table.tr.td[0].table[1].tr.td.div[divNum].table[1].tr[i];
+			post = data.query.results.body.form.div[1].div.table.tbody.tr.td[0].table[1].tbody.tr.td.div[divNum].table[1].tbody.tr[i];
 			if(post.style == 'background-color:LightGrey;' || post.style == 'background-color:DarkGray;') {
 				continue;
 			}
 			else {
-				if(post.td[1].p == 'DQ') {
+				if(post.td[1] == 'DQ') {
 					continue;
 				}
-				if(post.td[1].p == 'DNF') {
+				if(post.td[1] == 'DNF') {
 					continue;
 				}
-				if(post.td[0].p == AT_EVENT) {
+				if(post.td[0] == AT_EVENT) {
 					if(Object.keys(post.td[9])[0] == 'a') {
 						var reg = /\-/g;
-						var perfDate = post.td[11].p;
+						var perfDate = post.td[11].content;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1].p,
+							time:post.td[1],
 							date:perfDate,
 							location:post.td[9].a.content,
 						};
 					} 
 					else {
 						var reg = /\-/g;
-						var perfDate = post.td[11].p;
+						var perfDate = post.td[11].content;
 						if(reg.test(perfDate)) {
 							var string = perfDate;
 							perfDate = string.substring(string.indexOf('-')+1,string.length);
 						} 
 						performance = {
-							time:post.td[1].p,
+							time:post.td[1],
 							date:perfDate,
-							location:post.td[9].p,
+							location:post.td[9],
 						};
 					}
 					if(SB) {
@@ -184,15 +187,18 @@ function drawVisual() {
 		vAxis: {gridlines: {count: 20}, format: 'HH:mm:ss.SS'},
 		hAxis: {gridlines: {count: -1}},
 		legend: {position: 'none'},
+		series: {0: { color: '#44546a' }},
 		tooltip: {isHtml: true},
 		animation : {duration : 5000,
 							easing: 'out'},
 		title: AT_ATHLETE_NAME + ' - ' + AT_EVENT + 'm Progression (All Time)',
+		titleTextStyle: {color: '#44546a'},
 		chartArea: {
 			left: 100,
 			width: $('#visualization').width()*0.825,
 			height: $('#visualization').height()*0.8,
 		},
+		backgroundColor: 'transparent',
 	};
 		
 	// Create and draw the visualization with the specified data and options.

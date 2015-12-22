@@ -15,7 +15,9 @@ $(document).ready(function () {
 		$('#to').hide();
 	}
 	
-	if($('#start').val() == "2014") {
+	if($('#start').val() == "2016") {
+		$("#end option[value='2015']").remove();
+		$("#end option[value='2014']").remove();
 		$("#end option[value='2013']").remove();
 		$("#end option[value='2012']").remove();
 		$("#end option[value='2011']").remove();
@@ -46,6 +48,8 @@ $(window).load(function() {
 		
 		// Remove years in the past.
 		switch(year) {
+			case 2016 : $("#end option[value='2015']").remove();
+			case 2015 : $("#end option[value='2014']").remove();
 			case 2014 : $("#end option[value='2013']").remove();
 			case 2013 : $("#end option[value='2012']").remove();
 			case 2012 : $("#end option[value='2011']").remove();
@@ -74,124 +78,12 @@ $(window).load(function() {
 			case 2006 : $("#end option[value='2012']").remove();
 			case 2007 : $("#end option[value='2013']").remove();
 			case 2008 : $("#end option[value='2014']").remove();
-			//case 2009 : $("#end option[value='2010']").remove();
-			//case 2010 : $("#end option[value='2011']").remove();
-			//case 2011 : $("#end option[value='2012']").remove();
-			//case 2012 : $("#end option[value='2013']").remove();
-			//case 2013 : $("#end option[value='2014']").remove();
+			case 2009 : $("#end option[value='2015']").remove();
+			case 2010 : $("#end option[value='2016']").remove();
 			default : break;//do nothing.
 		}
 		
 		var count = 0;
-		
-		/*switch(year) {
-			case 2014 : count++;
-						if($("#end option[value='2014']").length < 1) {
-							$("#end").append('<option value="2014">2014</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2013 : count++;
-						if($("#end option[value='2013']").length < 1) {
-							$("#end").append('<option value="2013">2013</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2012 : count++;
-						if($("#end option[value='2012']").length < 1) {
-							$("#end").append('<option value="2012">2012</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2011 : count++;
-						if($("#end option[value='2011']").length < 1) {
-							$("#end").append('<option value="2011">2011</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2010 : count++;
-						if($("#end option[value='2010']").length < 1) {
-							$("#end").append('<option value="2010">2010</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2009 : count++;
-						if($("#end option[value='2009']").length < 1) {
-							$("#end").append('<option value="2009">2009</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2008 : count++;
-						if($("#end option[value='2008']").length < 1) {
-							$("#end").append('<option value="2008">2008</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2007 : count++;
-						if($("#end option[value='2007']").length < 1) {
-							$("#end").append('<option value="2007">2007</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2006 : count++;
-						if($("#end option[value='2006']").length < 1) {
-							$("#end").append('<option value="2006">2006</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2005 : count++;
-						if($("#end option[value='2005']").length < 1) {
-							$("#end").append('<option value="2005">2005</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2004 : count++;
-						if($("#end option[value='2004']").length < 1) {
-							$("#end").append('<option value="2004">2004</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2003 : count++;
-						if($("#end option[value='2003']").length < 1) {
-							$("#end").append('<option value="2003">2003</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2002 : count++;
-						if($("#end option[value='2002']").length < 1) {
-							$("#end").append('<option value="2002">2002</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2001 : count++;
-						if($("#end option[value='2001']").length < 1) {
-							$("#end").append('<option value="2001">2001</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			case 2000 : count++;
-						if($("#end option[value='2000']").length < 1) {
-							$("#end").append('<option value="2000">2000</option>');
-						}
-						if(count > 5) {
-							break;
-						}
-			default : break;
-		}*/
 		
 		switch(year) {
 			case 2000 : count++;
@@ -364,6 +256,30 @@ $(window).load(function() {
 							}
 							else {
 								$("#end option[value='2013']").before($('<option value="2013">2013</option>').val('2014').html('2014'));
+							}
+						}
+						if(count > 5) {
+							break;
+						}
+			case 2015 : count++;
+						if($("#end option[value='2015']").length < 1) {
+							if($("#end option[value='2014']").length < 1) {
+								$("#end").append('<option value="2015">2015</option>');
+							}
+							else {
+								$("#end option[value='2014']").before($('<option value="2014">2014</option>').val('2015').html('2015'));
+							}
+						}
+						if(count > 5) {
+							break;
+						}
+			case 2016 : count++;
+						if($("#end option[value='2016']").length < 1) {
+							if($("#end option[value='2015']").length < 1) {
+								$("#end").append('<option value="2016">2016</option>');
+							}
+							else {
+								$("#end option[value='2015']").before($('<option value="2015">2015</option>').val('2016').html('2016'));
 							}
 						}
 						if(count > 5) {
