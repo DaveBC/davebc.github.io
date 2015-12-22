@@ -1,0 +1,142 @@
+<!-- Created by David Banwell-Clode on 20/12/2015. -->
+<!-- Copyright (c) 2015 David Banwell-Clode. All rights reserved. -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Progression Chart Generator</title>
+	 <link rel="stylesheet" type="text/css" href="../css/progressstyle.css">
+     <link rel="stylesheet" type="text/css" href="../css/overlay.css" />
+     
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script>
+	$( window ).load(function() {
+		  $('#loader').hide();
+	});
+	</script>
+    <script type="text/javascript" src="../js/formValidation.js"></script>
+	<script type="text/javascript" src="../js/allTime.js"></script>
+    <script type="text/javascript" src="../js/yearRange.js"></script>
+    <script type="text/javascript" src="../js/time.js"></script>
+    <script type="text/javascript" src="../js/modernizr.custom.js"></script>
+  
+  <link rel="icon" type="image/png" href="../images/icon_16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="../images/icon_48.png" sizes="48x48">
+  <link rel="icon" type="image/png" href="../images/icon_196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="../images/icon_32.png" sizes="32x32">
+  </head>
+  <body>
+ 		<div class="linkContainer">
+        	<span><a href="http://www.thepowerof10.info/" target="_blank">thepowerof10.info</a></span>
+        </div>
+		<div class="headContainer">
+            <header>
+					<h1 class="topHead">
+                  Power of 10
+					</h1>
+					<h1 class="bottomHead">
+						Progression Chart Generator
+               </h1>
+            </header>
+		</div>
+		<div class="pageLine"></div>
+        <div class="container">
+        	<form name="athleteInfo" id="athleteInfo">
+            	<h2 class="bodyText">
+                	<span>
+                        Power of 10 ID: <input autocomplete="off" type="text" name="p10ID" id="p10ID" value=""> 
+                        Event:
+                        <select id="eventPicker">
+                            <option value="60">60m</option>
+                            <option value="100">100m</option>
+                            <option value="200">200m</option>
+                            <option value="400">400m</option>
+                            <option value="800">800m</option>
+                            <option value="1500">1500m</option>
+                            <option value="3000">3000m</option>
+                            <option value="5000">5000m</option>
+                            <option value="10000">10000m</option>
+                            <option value="110H">110 Hurdles</option>
+                            <option value="400H">400 Hurdles</option>
+                        </select>
+                        Period: 
+                        <select id="period">
+                            <option value="AT">All Time</option>
+                            <option value="YR">Year Range</option>
+                        </select>
+                        <a id="from">From:</a> 
+                        <select id="start">
+                        	<option value="2016">2016</option>
+                        	<option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                            <option value="2007">2007</option>
+                            <option value="2006">2006</option>
+                            <option value="2005">2005</option>
+                            <option value="2004">2004</option>
+                            <option value="2003">2003</option>
+                            <option value="2002">2002</option>
+                            <option value="2001">2001</option>
+                            <option value="2000">2000</option>
+                        </select>
+                        <a id="to">To:</a>
+                        <select id="end">
+                        	<option value="2016">2016</option>
+                        	<option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                            <option value="2007">2007</option>
+                            <option value="2006">2006</option>
+                            <option value="2005">2005</option>
+                            <option value="2004">2004</option>
+                            <option value="2003">2003</option>
+                            <option value="2002">2002</option>
+                            <option value="2001">2001</option>
+                            <option value="2000">2000</option>
+                        </select>
+                        <a id="seasonText">Seasons best only:</a><input id="SB" type="checkbox" value="sb"/>
+                        <input id="clickMe" type="button" value="Go!" onclick="generateAllTime()" />
+                        <img id="loader" src="../images/loader.gif"/>
+                	</span>
+                </h2>
+
+            </form>
+         </div>   
+		<div class="visual" id="visualization"></div>
+        <div id="errorMSG" class="errorMessage"><span id="errorMessageText">ERROR: No results received... can you view </span><span id="errorLink"><a id="errorLinkA" target="_blank" href="">your profile?</a></span></div>
+        <div class="helpContainer">
+            <span><a id="trigger-overlay" class"trigger">Show Help</a></span>
+        </div>
+        
+        <!-- open/close -->
+		<div class="overlay overlay-scale">
+			<button type="button" class="overlay-close">Close</button>
+			<div class="help">
+            <nav>
+				<ul>
+					<li><b>To find your Power of 10 ID:</b></li>
+					<li>1. Visit your profile page.</li>
+					<li>2. Your ID will be the numbers at the end of the page URL.
+                    	<br/> (http://www.thepowerof10.info/athletes/profile.aspx?athleteid=<b class="number">12345</b>)</li>
+				</ul>
+			</nav>
+            </div>
+		</div>
+        	<script type="text/javascript" src="../js/classie.js"></script>
+            <script type="text/javascript" src="../js/overlay.js"></script>
+  </body>
+</html>
