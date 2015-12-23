@@ -173,6 +173,7 @@ p {
 }
 
 span {
+	height: 27px;
 	display: inline-block;
 	vertical-align: middle;
 	line-height: normal;
