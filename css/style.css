@@ -99,6 +99,7 @@ a {
 	text-align:center;
 	font-weight:bold;
 	font-size:18pt;
+	line-height: 27px;
 }
 .sidebardiv {
 	float:left;
@@ -169,5 +170,11 @@ h1 {
 p {
 	width: 60%;
 	font-size:18pt;
+}
+
+span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height:normal;
 }
 	
