@@ -99,8 +99,7 @@ a {
 	text-align:center;
 	font-weight:bold;
 	font-size:18pt;
-        top: 50%;
-        transform: translateY(-50%);
+        line-height:27px;
 }
 .sidebardiv {
 	float:left;
