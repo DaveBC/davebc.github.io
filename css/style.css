@@ -103,6 +103,7 @@ a {
 	width:7.8125vw;
 	min-width:100px;
 	max-width:150px;
+	line-height: 1;
 }
 .sidebardiv {
 	float:left;
@@ -185,11 +186,5 @@ span {
 }
 
 iframe::-webkit-scrollbar {
- display: none;
+	display: none;
 }
-
- display {
- -webkit-inline-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
- }
