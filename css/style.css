@@ -100,7 +100,6 @@ a {
 	text-align:center;
 	font-weight:bold;
 	font-size:18pt;
-    line-height:27px;
 	width:7.8125vw;
 	min-width:100px;
 	max-width:150px;
@@ -148,7 +147,7 @@ a {
 	width: auto;
 	height: 100%;
 	margin-top:0px;
-	overflow:scroll;
+	overflow:hidden;
 }
 
 #iframe1 {
@@ -162,6 +161,8 @@ a {
 #aboutcontent {
 	position:absolute;
 	top:0;
+	overflow-x: hidden;
+ 	overflow-y: scroll;
 }
 
 h1 {
@@ -182,7 +183,7 @@ span {
 	vertical-align: middle;
 	line-height: normal;
 }
-	
-::-webkit-scrollbar { 
-    display: none; 
+
+iframe::-webkit-scrollbar {
+ display: none;
 }
