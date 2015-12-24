@@ -96,6 +96,7 @@ a {
 	position:relative;
 	left:0;
 	top:27px;
+	line-height: 100%;
 	height:27px;
 	text-align:center;
 	font-weight:bold;
@@ -103,8 +104,8 @@ a {
 	width:7.8125vw;
 	min-width:100px;
 	max-width:150px;
-	line-height: 1;
 }
+
 .sidebardiv {
 	float:left;
 	position:relative;
