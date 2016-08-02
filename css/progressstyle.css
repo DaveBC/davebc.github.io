@@ -52,173 +52,40 @@
 	font-style:normal
 }
 
-
-a {
-	text-decoration: none;
-	color:#464646;
-}
-
 body {
-  font-size:100%;
-  font-family:"Libre Baskerville",serif;
-  font-weight:400;
-  height:97%;
-  padding-top:27px;
-  overflow:hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
-button { 
-	border: 0;
-	background:none;
+hr {
+    width: 95%;
 }
 
-em {
-	font-weight:400
-}
-
-html {
-	height:100%;
+h1, h2 {
+    font-family: 'bebasneue';
+    font-weight: bold;
+    color: #44546a;
+    margin: 0;
 }
 
 h1 {
-	font-family:"bebasneue";
-	font-weight:bold;
+    font-size: 48pt;
 }
 
 h2 {
-	/*font-family:"Libre Baskerville",serif;*/
-	font-family:"bebasneue", normal;
-	font-weight:400;
-	font-size:1.125em;
-	line-height:1.875em;
-	color:#44546a;
-	-webkit-font-smoothing:antialiased
+    font-size: 32pt;
 }
 
 header {
-	width:720px;
-	margin:3em auto 0;
-	text-align:center
+    text-align: center;
 }
 
-header h1 {
-	font-size:6.4em;
-	color:#44546a;
-	line-height:0.879em;
-	margin:0.1em 0 -0.1em 0
-}
-
-strong {
-	font-weight:700
-}
-
-.body-font {
-	font-family:"Libre Baskerville",serif;
-	font-weight:400
-}
-
-.bodyText {
-	padding:0 10%;
-	font-family:"bebasneue";
-	font-weight: lighter;
-}
-
-.bottomHead {
-	font-size:3.4em;
-}
-
-.container {
-	margin:-0.75em auto;
-	padding:0 20px;
-	text-align:center
-}
-
-.errorMessage {
-	visibility:hidden;
-	margin:-30em 0 30em 0;
-	text-align: center;
-	font-family:"Libre Baskerville",serif;
-	color:#F00;
-}
-
-.errorMessage a {
-	margin:-30em 0 30em 0;
-	text-align: center;
-	font-family:"Libre Baskerville",serif;
-	color:#F00;
-	text-decoration:underline;
-}
-
-
-.headContainer {
-	margin:-2.4em 0 -1em 0;
-	padding:0 20px;
-	text-align:center
-}
-
-.help {
-	position:relative;
-	padding-top:25%;
-	text-align:center;
-	color:#D6D6D6;
-	font-family:"Libre Baskerville",serif;
-}
-
-.helpContainer {
-	position: absolute;
-	margin: 0em 0.1em 0em 0em;
-	left: -9.5%;
-	bottom: 2%;
-	height: 1em;
-	font-style:italic;
-	padding:0 10%;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.linkContainer {
-	position: absolute;
-	margin: 0em 0.1em 0em 0em;
-	right: 0%;
-	top: 27px;
-	height: 1em;
-	font-style:italic;
-}
-
-
-.number {
-	color:#BD0003
-}
-
-.pageLine {
-	content:"";
-	width:60%;
-	margin:1.5em 20% 1em;
-	height:0px;
-	display:block;
-	border:1px solid;
-	border-style:inset
-}
-
-.visual {
-	position:fixed;
-	margin:0.5em 0 -0.1em 5%;
-	width: 90%; 
-	height:75%;
-	/*
-	min-height: 75%; 
-    height: auto !important;
-    height: 600px;
-	*/
-	border:1px solid;
-	border-color:#CCC;
-}
-
-#seasonText {
-	color:#44546a;
-}
-
-#clickMe {
-	font-family:"bebasneue";
-	font-weight:bold;
+#chart {
+    width: 95%;
+    min-width: 900px;
+    height: 80%;
+    min-height: 600px;
+    background-color: red;
+    margin: 0 auto;
 }
