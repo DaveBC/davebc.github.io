@@ -16,7 +16,7 @@ var YR_tableData;
 var YR_ATHLETE_NAME;
 var YR_PROFILE;
 var YR_Retry = 0;
- 
+
 // Construct query
 var YR_query = "select * from html where url='thepowerof10.info/athletes/profile.aspx?athleteid=78185' limit 1";
  
