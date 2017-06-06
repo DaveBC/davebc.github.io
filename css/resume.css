@@ -12,7 +12,8 @@
 @font-face {
     font-family: 'bebasneue';
     src: url('../fonts/bebasneue_regular-webfont.eot');
-    src: url('../fonts/bebasneue_regular-webfont.eot?#iefix') format('embedded-opentype'),
+    src:    local('Bebas Neue Regular'), 
+        url('../fonts/bebasneue_regular-webfont.eot?#iefix') format('embedded-opentype'),
          url('../fonts/bebasneue_regular-webfont.woff2') format('woff2'),
          url('../fonts/bebasneue_regular-webfont.woff') format('woff'),
          url('../fonts/bebasneue_regular-webfont.ttf') format('truetype'),
@@ -23,7 +24,8 @@
 @font-face {
     font-family: 'bebasneue';
 	src: url('../fonts/bebasneue_bold-webfont.eot');
-    src: url('../fonts/bebasneue_bold-webfont.eot?#iefix') format('embedded-opentype'),
+    src:    local('Bebas Neue Bold'),
+        url('../fonts/bebasneue_bold-webfont.eot?#iefix') format('embedded-opentype'),
          url('../fonts/bebasneue_bold-webfont.woff2') format('woff2'),
          url('../fonts/bebasneue_bold-webfont.woff') format('woff'),
          url('../fonts/bebasneue_bold-webfont.ttf') format('truetype'),
@@ -33,7 +35,8 @@
 @font-face {
     font-family: 'bebasneue';
     src: url('../fonts/bebasneue_book-webfont.eot');
-    src: url('../fonts/bebasneue_book-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('Bebas Neue Book'),
+        url('../fonts/bebasneue_book-webfont.eot?#iefix') format('embedded-opentype'),
          url('../fonts/bebasneue_book-webfont.woff2') format('woff2'),
          url('../fonts/bebasneue_book-webfont.woff') format('woff'),
          url('../fonts/bebasneue_book-webfont.ttf') format('truetype'),
