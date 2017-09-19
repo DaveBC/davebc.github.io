@@ -121,7 +121,7 @@ a {
 }
 
 .banner {
-    overflow-y: scroll;
+    overflow-y: hidden;
     background-color: red;
 }
 
@@ -230,7 +230,6 @@ a {
     margin-top:0;
     font-size: 14pt;
     font-weight: normal;
-    overflow-y: hidden;
 }
 
 .banner h2 {
