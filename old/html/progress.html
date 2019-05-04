@@ -1,0 +1,38 @@
+<!-- Created by David Banwell-Clode on 2/08/2016. -->
+<!-- Copyright (c) 2016 David Banwell-Clode. All rights reserved. -->
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Progression Chart Generator</title>
+        <link rel="stylesheet" type="text/css" href="../css/progressstyle.css">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="../js/chart.js"></script>
+
+        <script>
+            var yqlCallback = function(data) {
+                var wind = data.query.results.channel.wind;
+                alert(wind.chill);
+            };
+        </script>
+
+        <script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='chicago, il')&format=json&callback=yqlCallback"></script>
+
+
+        <link rel="icon" type="image/png" href="../images/icon_16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="../images/icon_48.png" sizes="48x48">
+        <link rel="icon" type="image/png" href="../images/icon_196.png" sizes="196x196">
+        <link rel="icon" type="image/png" href="../images/icon_32.png" sizes="32x32">
+    </head>
+    <body>
+        <header>
+            <h1>Power of 10</h1>
+            <h2>Progression Chart Generator</h2>
+        </header>
+        <hr>
+        <section>
+            <div id="chart">map</div>
+        </section>
+        <footer></footer>
+    </body>
+</html>
