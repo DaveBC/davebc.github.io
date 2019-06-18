@@ -206,7 +206,7 @@ a {
         box-shadow: -230px 0 150px 50vw rgba(0, 0, 0, 0.7);
     }
     .timeline .swiper-slide-content {
-        right: 30%;
+        right: 400px;
         top: 50%;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
@@ -228,7 +228,7 @@ a {
     .timeline .swiper-button-prev {
         top: 15%;
         left: auto;
-        right: 15%;
+        right: 19%;
         -webkit-transform: rotate(90deg) translate(0, 10px);
         transform: rotate(90deg) translate(0, 10px);
     }
@@ -239,7 +239,7 @@ a {
     .timeline .swiper-button-next {
         top: auto;
         bottom: 15%;
-        right: 15%;
+        right: 19%;
         -webkit-transform: rotate(90deg) translate(0, 10px);
         transform: rotate(90deg) translate(0, 10px);
     }
@@ -257,10 +257,14 @@ a {
         box-shadow: -230px 0 150px 39vw rgba(0, 0, 0, 0.7);
     }
     .timeline .swiper-slide-content {
-        right: 30%;
+        right: 32%;
     }
 }
-@media screen and (max-width: 320px) {
+
+/* iPhone 5/5s */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) {
     .timeline .swiper-button-next, .timeline .swiper-button-prev  {
         top: 5%;
     }

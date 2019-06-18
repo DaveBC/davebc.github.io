@@ -1,11 +1,11 @@
-<!-- Created by David Banwell-Clode on 12/02/2017. -->
-<!-- Copyright (c) 2017 David Banwell-Clode. All rights reserved. -->
+<!-- Created by David Banwell-Clode on 03/05/2019. -->
+<!-- Copyright (c) 2019 David Banwell-Clode. All rights reserved. -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>David Banwell-Clode - Pilot Journey</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" integrity="sha256-R7DnEprdmCwOOU8N+o2WIebJ5BJoWbJuGtJcGN7w2BI=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
         <link rel="stylesheet" type="text/css" href="./css/style.css">
     </head>
     <body>
@@ -35,10 +35,18 @@
                               <source src="./video/Miami%20Beach.mp4" type="video/mp4">
                             </video>
                         </div>
-                        <div class="swiper-slide" style="background-image: url(https://unsplash.it/1920/500?image=12;" data-year="June 3rd 2019">
-                            <div class="swiper-slide-content"><span class="timeline-year">June 3rd, 2019</span>
+                        <div class="swiper-slide" style="background-image: url(./images/Aventura.jpg)" data-year="May 31st 2019">
+                            <div class="swiper-slide-content"><span class="timeline-year">May 31st, 2019</span>
+                                <h4 class="timeline-title">Private Written</h4>
+                                <p class="timeline-text">Passed the Private Pilot Airplane written exam today. I scored 98%, with a single, simple question incorrect. At least it gives the DPE something to talk about for the practical exam! For preparation, I read the <a target="_blank" href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak/">PHAK</a> back-to-front, completed all of the resources King Schools has to offer, and made use of <a target="_blank" href="https://www.sportys.com/pilotshop/learn-to-fly/faa-private-pilot-test-prep.html">Sporty's Study Buddy (free)</a>.</p>
+                                <p class="timeline-text"><i>Total time: 2hr.</i></p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image: url(https://unsplash.it/1920/500?image=12;" data-year="June 17th 2019">
+                            <div class="swiper-slide-content"><span class="timeline-year">June 17th, 2019</span>
                                 <h4 class="timeline-title">Day 1</h4>
-                                <p class="timeline-text">Placeholder for my first day.</p>
+                                <p class="timeline-text">First day at ATP! Unfortunately no flying due to bad weather. Spent a good amount of time getting to know my instructor and fellow students. Did some weight and balance work and walked through the preflight checklist.</p>
+                                <p class="timeline-text"><i>Total time: 2hr.</i></p>
                             </div>
                         </div>
                     </div>
@@ -48,26 +56,27 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js" integrity="sha256-ShAhm+50eq3u2njxZteHrfMlg/Nh+I1EtHL289p5gIM=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
         <script>
+            console.log(document.body.clientWidth);
+            var dir = (document.body.clientWidth <= 768) ? "horizontal":"vertical";
+            console.log(dir);
             var timelineSwiper = new Swiper(".timeline .swiper-container", {
-                direction: "vertical",
+                direction: dir,
                 loop: false,
                 speed: 1600,
-                pagination: ".swiper-pagination",
-                paginationBulletRender: function(swiper, index, className) {
-                    var year = document
-                    .querySelectorAll(".swiper-slide")[index].getAttribute("data-year");
-                    return '<span class="' + className + '">' + year + "</span>";
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    renderBullet: function(index, className) {
+                        var year = document.querySelectorAll(".swiper-slide")[index].getAttribute("data-year");
+                        return '<span class="' + className + '">' + year + "</span>";
+                    },
                 },
-                paginationClickable: true,
-                nextButton: ".swiper-button-next",
-                prevButton: ".swiper-button-prev",
-                breakpoints: {
-                    768: {
-                        direction: "horizontal"
-                    }
-                }
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
             });
         </script>
     </body>
