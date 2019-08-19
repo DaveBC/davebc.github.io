@@ -67,7 +67,7 @@ a {
     position: absolute;
     text-align: center;
     width: 80%;
-    max-width: 310px;
+    max-width: 410px;
     right: 50%;
     top: 13%;
     -webkit-transform: translate(50%, 0);
@@ -123,7 +123,7 @@ a {
 }
 .timeline .swiper-pagination {
     right: 15% !important;
-    height: 100%;
+    height: 60%;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -131,7 +131,9 @@ a {
     font-weight: 300;
     font-size: 18px;
     z-index: 1;
+    overflow-y: scroll;
 }
+
 .timeline .swiper-pagination::before {
     content: "";
     position: absolute;
@@ -151,6 +153,15 @@ a {
     margin: 15px 0 !important;
     position: relative;
 }
+
+.timeline .swiper-pagination-bullet:first-of-type {
+    margin-top:0 !important;
+}
+
+.timeline .swiper-pagination-bullet:last-of-type {
+    margin-bottom:0 !important;
+}
+
 .timeline .swiper-pagination-bullet::before {
     content: "";
     position: absolute;
@@ -210,20 +221,21 @@ a {
         top: 50%;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
-        width: 310px;
-        font-size: 11px;
+        width: 410px;
+        font-size: 14px;
         text-align: right;
     }
     .timeline .swiper-slide .timeline-year {
         margin-bottom: 0;
         font-size: 32px;
+        padding-right: 2px;
     }
     .timeline .swiper-slide .timeline-title {
         font-size: 46px;
         margin: 0;
     }
     .timeline .swiper-pagination {
-        display: flex;
+        display: block;
     }
     .timeline .swiper-button-prev {
         top: 15%;
