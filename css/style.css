@@ -70,13 +70,7 @@ label {
     float: left;
 }
 
-.exit {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-.settings {
+.exit, .settings {
     position: absolute;
     top: 0;
     right: 0;
@@ -167,12 +161,18 @@ and (orientation : portrait) {
         padding: 50px;
     }
     
+    .exit i.material-icons, .settings i.material-icons {
+        font-size: 10vw;
+    }
+    
     input[type=number], textarea {
         font-size: 8vw;
+        line-height: 8vw;
     }
     
     input[type=number]::placeholder, textarea::placeholder{
         font-size: 4vw;
+        vertical-align: middle;
     }
     
     .save {
