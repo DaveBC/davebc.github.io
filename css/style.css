@@ -37,7 +37,7 @@ body {
     color: #2B303A;
 }
 
-input[type=number], select, textarea {
+input[type=number], textarea {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -167,8 +167,12 @@ and (orientation : portrait) {
         padding: 50px;
     }
     
-    input[type=number], select, textarea {
+    input[type=number], textarea {
         font-size: 8vw;
+    }
+    
+    input[type=number]::placeholder, textarea::placeholder{
+        font-size: 4vw;
     }
     
     .save {
