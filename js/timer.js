@@ -31,7 +31,7 @@ function showMenu() {
 
 function saveSettings() {
     if (settingsForm[0].checkValidity()) {
-        if (duration.value != null && exercises.value != null && recovery.value != null) {
+        if (duration.value != "" && exercises.value != "" && recovery.value != "") {
             exerciseArray = document.getElementById('exercises').value.split('\n');
 
             if (exerciseArray.length > 0) {
@@ -43,6 +43,7 @@ function saveSettings() {
                 nextExerciseName.innerHTML = "Next: Last one!";
             }
             startTimerButton.firstElementChild.classList.remove("disabled");
+            console.log("Recovery:" + recovery.value);
             hideMenu();
         }
     }

@@ -10,6 +10,7 @@ $color5: #adf7b6ff;
 
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -44,7 +45,7 @@ input[type=number], select, textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-    font-size: 0.5em;
+    font-size: 2.5vw;
     font-family: sans-serif;
 }
 
@@ -82,7 +83,7 @@ label {
 }
 
 .exit i.material-icons, .settings i.material-icons {
-    font-size: 4em;
+    font-size: 5vw;
     color: #2B303A;
     cursor: pointer;
 }
@@ -96,6 +97,9 @@ label {
 
 #exercise {
     flex-grow: 1;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #timer {
@@ -128,7 +132,7 @@ p {
 
 #clock {
     color: #D91E36;
-    font-size: 18em;
+    font-size: 18vw;
     text-align: center;
     font-weight: bold;
     width: 100%;
@@ -136,7 +140,7 @@ p {
 
 i.button {
     color: #D91E36;
-    font-size: 18em;
+    font-size: 20vw;
     cursor: pointer;
 }
 
@@ -151,55 +155,53 @@ i.button:hover {
 
 .getReady {
     color: #92DCE5 !important;
-    font-size: 9em !important;
+    font-size: 9vw !important;
 }
 
-/*
-
-#timerContainer {
-    font-family: sans-serif;
-    font-weight: 300;
-    width: 70%;
-    margin: 20px auto;
-    min-height: 60px;
-    border-top: 0px;
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : portrait) {
+    .menu form {
+        font-size: 10vw;
+        padding: 50px;
+    }
+    
+    input[type=number], select, textarea {
+        font-size: 8vw;
+    }
+    
+    .save {
+        font-size: 8vw;
+    }
+    
+    #exerciseName {
+        font-size: 12vw;
+    }
+    
+    #nextExerciseName {
+        font-size: 8vw;
+    }
+    
+    i.button {
+        font-size: 30vw;
+    }
+    
+    #clock {
+        font-size: 25vw;
+    }
+    
+    .getReady {
+        font-size: 18vw !important;
+    }
+    
+    #controls, #exercise {
+        flex-grow: 0;
+    }
+    
+    #exercise {
+        margin: 10% 0;
+    }
 }
 
-#clock {
-    display: block;
-    padding: 50px;
-}
-
-.timer {
-    color: #D91E36;
-    font-size: 96pt;
-    text-align: center;
-    font-weight: bold;
-}
-
-#controls {
-    display: flex;
-    justify-content: center;
-    padding: 50px;
-}
-
-.reset {
-    width: 54%;
-    padding: 20px 0;
-    font-size: 24px;
-    text-align: center;
-    color: #fff;
-    background: #AF1526;
-    cursor: pointer;
-    width: 15%;
-}
-
-.reset:hover {
-    background: #E4505F;
-}
-
-.lighter {
-    background: #E4505F
-}
-*/
 
