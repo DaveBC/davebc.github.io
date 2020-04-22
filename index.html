@@ -7,6 +7,7 @@
   <title>TeamThie Circuits</title>
   <meta name="description" content="A Timer for TeamThie Circuits">
   <meta name="author" content="David Banwell-Clode">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css?v=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -31,6 +32,7 @@
     </div>
     <div class="container">
         <div class="settings" id="settingsButton" onclick="showMenu()"><i class="material-icons">settings</i></div>
+        <div class="share" id="share" onclick="showShareBox()"><i class="material-icons">share</i></div>
         <div id="exercise">
             <h1 id="exerciseName">
                 Exercise_Name
@@ -51,6 +53,18 @@
             </div>
             <div class="stopTimer" onclick="" >
                 <i class="button material-icons disabled">stop</i>
+            </div>
+        </div>
+    </div>
+    <div class="shareContainer" id="sharePopup">
+        <div class="exit"><i class="material-icons" onclick="hideShareBox()">cancel</i></div>
+        <div class="shareBox">
+        <input type="text" value="https://davebc.github.io/" id="shareURL" readonly>
+        <div class="tooltip">
+            <button class="shareButton" onclick="copyToClipboard()" onmouseout="outFunc()">
+                <span class="tooltiptext" id="shareToolTip">Copy to clipboard</span>
+                Copy text
+            </button>
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 var menu = document.querySelector('.menu');
+var share = document.getElementById('sharePopup')
 var exerciseArray;
 var exercises = document.getElementById('exercises');
 var exerciseName = document.getElementById('exerciseName');
@@ -8,6 +9,8 @@ var recovery = document.getElementById('recovery');
 var clock = document.getElementById('clock');
 var form = document.getElementById('settingsForm');
 var settingsButton = document.getElementById('settingsButton');
+var shareURL = document.getElementById('shareURL');
+var shareToolTip = document.getElementById("shareToolTip");
 
 var countdown;
 var countdownCounter;
@@ -21,12 +24,60 @@ var startTimerButton = document.querySelector('.startTimer');
 var pauseTimerButton = document.querySelector('.pauseTimer');
 var stopTimerButton = document.querySelector('.stopTimer');
 
+window.addEventListener('load', function() {
+    let exerciseQuery = getQueryVariable("exercises");
+    if (exerciseQuery) {
+        exercises.value = decodeURIComponent(getQueryVariable("exercises"));
+    }
+    
+    duration.value = getQueryVariable("duration");
+    recovery.value = getQueryVariable("recovery");
+})
+
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+function generateShareURL() {
+    let exercisesURI = encodeURIComponent(document.getElementById('exercises').value);
+    
+    shareURL.value = "https://davebc.github.io/?" + "duration=" + duration.value + "&" + "recovery=" + recovery.value + "&" + "exercises=" + exercisesURI;
+//    console.log(shareURL);
+}
+
 function hideMenu() {
     menu.style.display = "none";
 }
 
 function showMenu() {
     menu.style.display = "";
+}
+
+function showShareBox() {
+    share.style.display = "flex";
+}
+
+function hideShareBox() {
+    share.style.display = "none";
+}
+
+function outFunc() {
+  shareToolTip.innerHTML = "Copy to clipboard";
+}
+
+function copyToClipboard() {
+  shareURL.select();
+  shareURL.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  shareToolTip.innerHTML = "Copied!";
 }
 
 function saveSettings() {
@@ -43,8 +94,8 @@ function saveSettings() {
                 nextExerciseName.innerHTML = "Next: Last one!";
             }
             startTimerButton.firstElementChild.classList.remove("disabled");
-            console.log("Recovery:" + recovery.value);
             hideMenu();
+            generateShareURL();
         }
     }
 }
