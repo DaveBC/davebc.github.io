@@ -1,0 +1,37 @@
+<!-- Created by David Banwell-Clode on 04/20/2020. -->
+<!-- Copyright (c) 2020 David Banwell-Clode. All rights reserved. -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <title>TeamThie Circuits</title>
+</head>
+
+<body>
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+function start() {
+  // 2. Initialize the JavaScript client library.
+  gapi.client.init({
+    'apiKey': 'YOUR_API_KEY',
+    // clientId and scope are optional if auth is not required.
+    'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+    'scope': 'profile',
+  }).then(function() {
+    // 3. Initialize and make the API request.
+    return gapi.client.request({
+      'path': 'https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.channels.list?part=contentDetails&id=UCK8sQmJBp8GCxrOtXWBpyEA',
+    })
+  }).then(function(response) {
+    console.log(response.result);
+  }, function(reason) {
+    console.log('Error: ' + reason.result.error.message);
+  });
+};
+// 1. Load the JavaScript client library.
+gapi.load('client', start);
+</script>
+</body>
+
+</html>
