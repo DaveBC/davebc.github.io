@@ -37,7 +37,7 @@ window.addEventListener('load', function() {
 
 function getQueryVariable(variable)
 {
-       var query = window.location.search.substring(1);
+       var query = decodeURIComponent(window.location.search.substring(1));
        var vars = query.split("&");
        for (var i=0;i<vars.length;i++) {
                var pair = vars[i].split("=");
@@ -48,8 +48,8 @@ function getQueryVariable(variable)
 
 function generateShareURL() {
     let exercisesURI = encodeURIComponent(document.getElementById('exercises').value);
-    
-    shareURL.value = "https://davebc.github.io/?" + "duration=" + duration.value + "&" + "recovery=" + recovery.value + "&" + "exercises=" + exercisesURI;
+    let encodedAmpersand = encodeURIComponent("&");
+    shareURL.value = "https://davebc.github.io/?" + "duration=" + duration.value + encodedAmpersand + "recovery=" + recovery.value + encodedAmpersand + "exercises=" + exercisesURI;
 //    console.log(shareURL);
 }
 
