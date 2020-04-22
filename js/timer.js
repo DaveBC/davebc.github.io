@@ -27,7 +27,7 @@ var stopTimerButton = document.querySelector('.stopTimer');
 window.addEventListener('load', function() {
     let exerciseQuery = getQueryVariable("exercises");
     if (exerciseQuery) {
-        exercises.value = decodeURIComponent(getQueryVariable("exercises"));
+        exercises.value = decodeURIComponent(getQueryVariable("exercises")).replace(/,/g,"\n");
     }
     
     duration.value = getQueryVariable("duration");
@@ -47,7 +47,8 @@ function getQueryVariable(variable)
 }
 
 function generateShareURL() {
-    let exercisesURI = encodeURIComponent(document.getElementById('exercises').value);
+    var exercisesURI = encodeURIComponent(document.getElementById('exercises').value);
+    exercisesURI = exercisesURI.replace(/%0A/g, "%2C");
     let encodedAmpersand = encodeURIComponent("&");
     shareURL.value = "https://davebc.github.io/?" + "duration=" + duration.value + encodedAmpersand + "recovery=" + recovery.value + encodedAmpersand + "exercises=" + exercisesURI;
 //    console.log(shareURL);
