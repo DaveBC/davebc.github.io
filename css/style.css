@@ -264,7 +264,7 @@ and (min-device-width : 375px)
 and (max-device-width : 667px) 
 and (orientation : portrait) {
     .menu form {
-        font-size: 10vw;
+        font-size: 8vw;
         padding: 50px;
     }
     
@@ -275,6 +275,7 @@ and (orientation : portrait) {
     input[type=number], textarea {
         font-size: 8vw;
         line-height: 8vw;
+        margin: 8px 0 10px 0;
     }
     
     input[type=number]::placeholder, textarea::placeholder{
@@ -282,8 +283,12 @@ and (orientation : portrait) {
         vertical-align: middle;
     }
     
+    #exercises {
+        margin-bottom: 0;
+    }
+    
     .save {
-        font-size: 8vw;
+        font-size: 6vw;
     }
     
     #exerciseName {
@@ -317,6 +322,8 @@ and (orientation : portrait) {
     .shareButton {
         font-size: 5vw;
     }
+    
+    
 }
 
 
