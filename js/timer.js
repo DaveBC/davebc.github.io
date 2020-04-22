@@ -24,26 +24,30 @@ var startTimerButton = document.querySelector('.startTimer');
 var pauseTimerButton = document.querySelector('.pauseTimer');
 var stopTimerButton = document.querySelector('.stopTimer');
 
-window.addEventListener('load', function() {
+var youtubeLink = document.getElementById('youtubeLink');
+
+window.addEventListener('load', function () {
     let exerciseQuery = getQueryVariable("exercises");
     if (exerciseQuery) {
-        exercises.value = decodeURIComponent(getQueryVariable("exercises")).replace(/,/g,"\n");
+        exercises.value = decodeURIComponent(getQueryVariable("exercises")).replace(/,/g, "\n");
     }
-    
+
     duration.value = getQueryVariable("duration");
     recovery.value = getQueryVariable("recovery");
+    latestYoutubeVideo();
 })
 
 
-function getQueryVariable(variable)
-{
-       var query = decodeURIComponent(window.location.search.substring(1));
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+function getQueryVariable(variable) {
+    var query = decodeURIComponent(window.location.search.substring(1));
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1];
+        }
+    }
+    return (false);
 }
 
 function generateShareURL() {
@@ -51,7 +55,7 @@ function generateShareURL() {
     exercisesURI = exercisesURI.replace(/%0A/g, "%2C");
     let encodedAmpersand = encodeURIComponent("&");
     shareURL.value = "https://davebc.github.io/?" + "duration=" + duration.value + encodedAmpersand + "recovery=" + recovery.value + encodedAmpersand + "exercises=" + exercisesURI;
-//    console.log(shareURL);
+    //    console.log(shareURL);
 }
 
 function hideMenu() {
@@ -71,14 +75,14 @@ function hideShareBox() {
 }
 
 function outFunc() {
-  shareToolTip.innerHTML = "Copy to clipboard";
+    shareToolTip.innerHTML = "Copy to clipboard";
 }
 
 function copyToClipboard() {
-  shareURL.select();
-  shareURL.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  shareToolTip.innerHTML = "Copied!";
+    shareURL.select();
+    shareURL.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    shareToolTip.innerHTML = "Copied!";
 }
 
 function saveSettings() {
@@ -281,4 +285,23 @@ function stopCircuit() {
     };
     clock.classList.remove("getReady");
     clock.innerHTML = "Stopped";
+}
+
+function latestYoutubeVideo() {
+    $.ajax({
+        url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&playlistId=UUOwIIY3jKWNfNhZ7DEnuqlg&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+        dataType: 'json',
+        success: function (data) {
+            //              console.log(data);
+            //              console.log(data['items'][0]['contentDetails']['videoId']);
+            let youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['contentDetails']['videoId'];
+            let title = data['items'][0]['snippet']['title'];
+            //                    console.log(youtubeurl);
+            youtubeLink.innerHTML = "Latest Video: " + title;
+            youtubeLink.href = youtubeurl;
+        },
+        error: function () {
+            console.log("Error: Unable to fetch latest video.");
+        }
+    });
 }

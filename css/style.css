@@ -231,8 +231,32 @@ i.button:hover {
     text-align: center;
 }
 
+.share {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 /*
 ========================= End Share =========================
+*/
+
+/*
+========================= Youtube =========================
+*/
+
+.youtube {
+    text-align: center;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.youtube a:link, .youtube a:visited {
+    color: #E4505F;
+}
+
+/*
+========================= End Youtube =========================
 */
 
 @media only screen 
