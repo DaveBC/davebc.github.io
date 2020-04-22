@@ -24,15 +24,12 @@
         <div class="exit"><i class="material-icons" onclick="hideMenu()">cancel</i></div>
         <form id="settingsForm">
             <label for="duration">Duration</label>
-            <input type="number" pattern="[0-9]*" id="duration" name="duration" min="0" max="60" step="5" placeholder="Enter duration in seconds."><br>
-            <br>
-            <label for="recovery">Recovery</label>
+            <input type="number" pattern="[0-9]*" id="duration" name="duration" min="0" max="60" step="5" placeholder="Enter duration in seconds.">
+            <label for="recovery">Recovery</label><br>
             <input type="number" pattern="[0-9]*" id="recovery" name="recovery" min="0" max="60" step="5" placeholder="Enter recovery in seconds."><br>
-            <br>
             <label for="exercises">Exercises</label>
             <br>
             <textarea id="exercises" rows="4" cols="50" placeholder="Enter exercises here - one per line."></textarea>
-            <br>
             <div onclick="saveSettings()" class="save">Save</div>
         </form>
     </div>
