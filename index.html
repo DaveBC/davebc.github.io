@@ -16,6 +16,31 @@
     <meta property="og:title" content="TeamThie Circuits" />
     <meta property="og:description" content="A simple timer for TeamThie circuits." />
     <meta property="og:image" content="https://repository-images.githubusercontent.com/22520361/f47ac680-8492-11ea-84db-61db7914c371" />
+    
+        <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        function start() {
+            // 2. Initialize the JavaScript client library.
+            gapi.client.init({
+                'apiKey': 'AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+                // clientId and scope are optional if auth is not required.
+//                'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+//                'scope': 'profile',
+            }).then(function() {
+                // 3. Initialize and make the API request.
+                return gapi.client.request({
+                    'path': 'https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.channels.list?part=contentDetails&id=UCOwIIY3jKWNfNhZ7DEnuqlg',
+                })
+            }).then(function(response) {
+                console.log(response.result);
+            }, function(reason) {
+                console.log('Error: ' + reason.result.error.message);
+            });
+        };
+        // 1. Load the JavaScript client library.
+        gapi.load('client', start);
+    </script>
+    
 </head>
 
 <body>
