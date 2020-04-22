@@ -313,6 +313,10 @@ and (orientation : portrait) {
     #exercise {
         margin: 10% 0;
     }
+    
+    .shareButton {
+        font-size: 5vw;
+    }
 }
 
 
