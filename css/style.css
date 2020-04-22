@@ -245,7 +245,7 @@ and (orientation : portrait) {
         padding: 50px;
     }
     
-    .exit i.material-icons, .settings i.material-icons {
+    .exit i.material-icons, .settings i.material-icons, .share i.material-icons {
         font-size: 10vw;
     }
     
@@ -289,6 +289,10 @@ and (orientation : portrait) {
     
     #exercise {
         margin: 10% 0;
+    }
+    
+    .shareButton {
+        font-size: 5vw;
     }
 }
 
