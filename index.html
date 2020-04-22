@@ -2,33 +2,38 @@
 <!-- Copyright (c) 2020 David Banwell-Clode. All rights reserved. -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-  <meta charset="utf-8">
-  <title>TeamThie Circuits</title>
-  <meta name="description" content="A Timer for TeamThie Circuits">
-  <meta name="author" content="David Banwell-Clode">
+    <meta charset="utf-8">
+    <title>TeamThie Circuits</title>
+    <meta name="description" content="A Timer for TeamThie Circuits">
+    <meta name="author" content="David Banwell-Clode">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css?v=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta property="og:url" content="http://davebc.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TeamThie Circuits" />
+    <meta property="og:description" content="A simple timer for TeamThie circuits." />
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/22520361/f47ac680-8492-11ea-84db-61db7914c371" />
 </head>
 
 <body>
     <div class="menu">
         <div class="exit"><i class="material-icons" onclick="hideMenu()">cancel</i></div>
-         <form id="settingsForm">
-              <label for="duration">Duration</label>
-              <input type="number" pattern="[0-9]*" id="duration" name="duration" min="0" max="60" step="5" placeholder="Enter duration in seconds."><br>
-                <br>
-              <label for="recovery">Recovery</label>
-              <input type="number" pattern="[0-9]*" id="recovery" name="recovery" min="0" max="60" step="5" placeholder="Enter recovery in seconds."><br>
-             <br>
-             <label for="exercises">Exercises</label>
-             <br>
-              <textarea id="exercises" rows="4" cols="50" placeholder="Enter exercises here - one per line."></textarea>
-             <br>
-             <div onclick="saveSettings()" class="save">Save</div>
-        </form> 
+        <form id="settingsForm">
+            <label for="duration">Duration</label>
+            <input type="number" pattern="[0-9]*" id="duration" name="duration" min="0" max="60" step="5" placeholder="Enter duration in seconds."><br>
+            <br>
+            <label for="recovery">Recovery</label>
+            <input type="number" pattern="[0-9]*" id="recovery" name="recovery" min="0" max="60" step="5" placeholder="Enter recovery in seconds."><br>
+            <br>
+            <label for="exercises">Exercises</label>
+            <br>
+            <textarea id="exercises" rows="4" cols="50" placeholder="Enter exercises here - one per line."></textarea>
+            <br>
+            <div onclick="saveSettings()" class="save">Save</div>
+        </form>
     </div>
     <div class="container">
         <div class="settings" id="settingsButton" onclick="showMenu()"><i class="material-icons">settings</i></div>
@@ -45,13 +50,13 @@
             </div>
         </div>
         <div id="controls">
-            <div class="startTimer" onclick="startCircuit()" >
+            <div class="startTimer" onclick="startCircuit()">
                 <i class="button material-icons disabled">play_arrow</i>
             </div>
-            <div class="pauseTimer" onclick="" >
+            <div class="pauseTimer" onclick="">
                 <i class="button material-icons disabled">pause</i>
             </div>
-            <div class="stopTimer" onclick="" >
+            <div class="stopTimer" onclick="">
                 <i class="button material-icons disabled">stop</i>
             </div>
         </div>
@@ -59,15 +64,16 @@
     <div class="shareContainer" id="sharePopup">
         <div class="exit"><i class="material-icons" onclick="hideShareBox()">cancel</i></div>
         <div class="shareBox">
-        <input type="text" value="https://davebc.github.io/" id="shareURL" readonly>
-        <div class="tooltip">
-            <button class="shareButton" onclick="copyToClipboard()" onmouseout="outFunc()">
-                <span class="tooltiptext" id="shareToolTip">Copy to clipboard</span>
-                Copy text
-            </button>
+            <input type="text" value="https://davebc.github.io/" id="shareURL" readonly>
+            <div class="tooltip">
+                <button class="shareButton" onclick="copyToClipboard()" onmouseout="outFunc()">
+                    <span class="tooltiptext" id="shareToolTip">Copy to clipboard</span>
+                    Copy text
+                </button>
             </div>
         </div>
     </div>
     <script type="text/javascript" src="js/timer.js"></script>
 </body>
+
 </html>
