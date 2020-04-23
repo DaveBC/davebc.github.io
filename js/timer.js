@@ -37,7 +37,9 @@ var debugExpectedFinishTime;
 window.addEventListener('load', function () {
     let exerciseQuery = getQueryVariable("exercises");
     if (exerciseQuery) {
-        exercises.value = decodeURIComponent(getQueryVariable("exercises")).replace(/,/g, "\n");
+        var decodedExercises = decodeURIComponent(getQueryVariable("exercises")).replace(/,/g, "\n");
+        decodedExercises = decodedExercises.replace(/\+/g, " ");
+        exercises.value = decodedExercises;
     }
 
     duration.value = getQueryVariable("duration");
