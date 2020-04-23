@@ -14,17 +14,25 @@ var shareToolTip = document.getElementById("shareToolTip");
 
 var countdown;
 var countdownCounter;
+var countupCounter;
 var lowChime = new Audio("sounds/chime_low.mp3");
 var highChime = new Audio("sounds/chime_high.mp3");
 var exerciseNumber;
 var flipFlop = true; //true = exercise, false = recovery.
-var state = 0; //0 = countdown, 1 = exercise, 2 = recovery, 3 = circuitLoop.
+var state = 0; //0 = countdown, 1 = circuitLoop.
+var interval = 100; //ms
+var expected;
+var running = true;
 
 var startTimerButton = document.querySelector('.startTimer');
 var pauseTimerButton = document.querySelector('.pauseTimer');
 var stopTimerButton = document.querySelector('.stopTimer');
 
 var youtubeLink = document.getElementById('youtubeLink');
+
+var debugStartTime;
+var debugFinishTime;
+var debugExpectedFinishTime;
 
 window.addEventListener('load', function () {
     let exerciseQuery = getQueryVariable("exercises");
@@ -106,106 +114,76 @@ function saveSettings() {
 }
 
 function circuitLoop() {
-    if (flipFlop) {
-        clock.style.color = "#D91E36"
-        if (exerciseNumber < exerciseArray.length) {
-            exerciseName.innerHTML = exerciseArray[exerciseNumber];
-            if (exerciseNumber + 1 < exerciseArray.length) {
-                nextExerciseName.innerHTML = "Next: " + exerciseArray[exerciseNumber + 1];
-            } else {
-                nextExerciseName.innerHTML = "Next: Last one!";
+    if (running) {
+        var dt = Date.now() - expected;
+        
+        var second = Math.ceil(countdownCounter/10);
+        clock.innerHTML = second;
+        if (countdownCounter == 10 || countdownCounter == 20 || countdownCounter == 30) {
+            lowChime.play();
+        }
+
+        if (flipFlop) { // exercise  
+            if (countdownCounter == duration.value*10) {
+                highChime.play();
+                clock.style.color = "#D91E36";
+
+                //update exercise title
+                if (exerciseNumber < exerciseArray.length) {
+                    exerciseName.innerHTML = exerciseArray[exerciseNumber];
+                    if (exerciseNumber + 1 < exerciseArray.length) {
+                        nextExerciseName.innerHTML = "Next: " + exerciseArray[exerciseNumber + 1];
+                    } else {
+                        nextExerciseName.innerHTML = "Next: Last one!";
+                    }
+                    exerciseNumber += 1;
+                }
             }
-            highChime.play();
-            countdownCounter = duration.value - 1;
-            clock.innerHTML = countdownCounter + 1;
-            countdown = setInterval(exerciseCountdown, 1000);
-        } else {
-            return;
-        }
-    } else {
-        clock.style.color = "#92DCE5"
-        highChime.play();
-        countdownCounter = recovery.value - 1;
-        clock.innerHTML = countdownCounter + 1;
-        countdown = setInterval(recoveryCountdown, 1000);
-    }
-}
-
-function recoveryCountdown() {
-    if (countdownCounter == 0) {
-        exerciseNumber = exerciseNumber + 1;
-        clearInterval(countdown);
-        flipFlop = true;
-        state = 1;
-        circuitLoop();
-    } else {
-        clock.innerHTML = countdownCounter;
-
-        if (countdownCounter == 1 || countdownCounter == 2 || countdownCounter == 3) {
-            lowChime.play();
+        } else { // recovery
+            if (countdownCounter == recovery.value*10) {
+                clock.style.color = "#92DCE5"
+                highChime.play();
+            }
         }
 
-        countdownCounter = countdownCounter - 1;
-    }
-}
 
-function exerciseCountdown() {
-    if (countdownCounter == 0) {
-        if (exerciseNumber == exerciseArray.length - 1) {
-            highChime.play();
-            clearInterval(countdown);
-            clock.innerHTML = "DONE!";
-            startTimerButton.firstElementChild.classList.remove("disabled");
-            startTimerButton.onclick = function () {
-                startCircuit();
-            };
-            pauseTimerButton.firstElementChild.classList.add("disabled");
-            pauseTimerButton.onclick = "";
-            stopTimerButton.firstElementChild.classList.add("disabled");
-            stopTimerButton.onclick = "";
-            settingsButton.firstElementChild.classList.remove("disabled");
-            settingsButton.onclick = function () {
-                showMenu();
-            };
-            state = 0;
-            return;
+        if (countdownCounter == 1) {
+            countdownCounter = flipFlop ? recovery.value*10 : duration.value*10;
+            flipFlop = !flipFlop;
+            if (!flipFlop && exerciseNumber >= exerciseArray.length) {
+                return setTimeout(finishCircuit, Math.max(0, interval - dt));
+            }
         }
-        countdownCounter = recovery.value;
-        clearInterval(countdown);
-        flipFlop = false;
-        state = 2;
-        circuitLoop();
-    } else {
-        clock.innerHTML = countdownCounter;
-
-        if (countdownCounter == 1 || countdownCounter == 2 || countdownCounter == 3) {
-            lowChime.play();
+        else {
+            countdownCounter -= 1;
         }
 
-        countdownCounter = countdownCounter - 1;
+        // Compensate for time drift.
+//        console.log("Drifted:" + dt);
+        expected += interval;
+        setTimeout(circuitLoop, Math.max(0, interval - dt));
     }
 }
 
 function countDown() {
-    if (countdownCounter == 0) {
-        clearInterval(countdown);
-        //        var tLoop = setTimeout(circuitLoop(), 1000);
-        clock.classList.remove("getReady");
-        state = 1;
-        circuitLoop();
-    } else {
-        clock.classList.add("getReady");
+    if(running) {
         clock.innerHTML = "Get ready.." + countdownCounter;
+        lowChime.play();
 
-        if (countdownCounter == 1 || countdownCounter == 2 || countdownCounter == 3) {
-            lowChime.play();
+        if (countdownCounter == 1) {
+            state = 1;
+            expected = Date.now() + 1000;
+            countdownCounter = duration.value*10;
+            setTimeout( function() { circuitLoop(); clock.classList.remove("getReady"); debugStartTime = Date.now();}, 1000);
+        } else {
+            countdownCounter = countdownCounter - 1;
+            setTimeout(countDown, 1000);
         }
-
-        countdownCounter = countdownCounter - 1;
     }
 }
 
 function startCircuit() {
+    console.log("start");
     startTimerButton.firstElementChild.classList.add("disabled");
     startTimerButton.onclick = "";
     pauseTimerButton.firstElementChild.classList.remove("disabled");
@@ -233,18 +211,47 @@ function startCircuit() {
     countdownCounter = 2
     exerciseNumber = 0;
     flipFlop = true;
-    countdown = setInterval(countDown, 1000);
+    state = 0;
+    running = true;
+    setTimeout(countDown, 1000);
+}
+
+function finishCircuit() {
+    highChime.play();
+    clock.innerHTML = "DONE!"
+    running = false;
+    startTimerButton.firstElementChild.classList.remove("disabled");
+    startTimerButton.onclick = function () {
+        startCircuit();
+    };
+    pauseTimerButton.firstElementChild.classList.add("disabled");
+    pauseTimerButton.onclick = "";
+    stopTimerButton.firstElementChild.classList.add("disabled");
+    stopTimerButton.onclick = "";
+    settingsButton.firstElementChild.classList.remove("disabled");
+    settingsButton.onclick = function () {
+        showMenu();
+    };
+    clock.classList.remove("getReady");
+    clock.style.color = "#D91E36";
+    
+//    debugFinishTime = Date.now();
+//    debugExpectedFinishTime = debugStartTime + (((exerciseArray.length * duration.value) + ((exerciseArray.length - 1) * recovery.value)) * 1000);
+//    var timeLapsed = debugFinishTime - debugStartTime;
+//    console.log("ms elapsed: " + timeLapsed);
+//    console.log("error: " + (debugFinishTime - debugExpectedFinishTime);
+    
+    return;
 }
 
 function resumeCircuit() {
+    running = true;
     if (state == 1) {
-        countdown = setInterval(exerciseCountdown, 1000);
-    }
-    if (state == 2) {
-        countdown = setInterval(recoveryCountdown, 1000);
+        expected = Date.now() + interval/2;
+        setTimeout(circuitLoop, interval/2);
     }
     if (state == 0) {
-        countdown = setInterval(countDown, 1000);
+        countDown();
     }
 
     startTimerButton.firstElementChild.classList.add("disabled");
@@ -260,17 +267,18 @@ function resumeCircuit() {
 }
 
 function pauseCircuit() {
-    clearInterval(countdown);
     startTimerButton.firstElementChild.classList.remove("disabled");
     startTimerButton.onclick = function () {
         resumeCircuit();
     };
     pauseTimerButton.firstElementChild.classList.add("disabled");
     pauseTimerButton.onclick = "";
+    running = false;
+    
 }
 
 function stopCircuit() {
-    clearInterval(countdown);
+    running = false;
     startTimerButton.firstElementChild.classList.remove("disabled");
     startTimerButton.onclick = function () {
         startCircuit();
@@ -284,6 +292,7 @@ function stopCircuit() {
         showMenu();
     };
     clock.classList.remove("getReady");
+    clock.style.color = "#D91E36";
     clock.innerHTML = "Stopped";
 }
 
