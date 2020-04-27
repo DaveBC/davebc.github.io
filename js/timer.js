@@ -44,7 +44,7 @@ window.addEventListener('load', function () {
 
     duration.value = getQueryVariable("duration");
     recovery.value = getQueryVariable("recovery");
-    latestYoutubeVideo();
+//    latestYoutubeVideo();
 })
 
 
