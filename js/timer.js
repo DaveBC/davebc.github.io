@@ -44,7 +44,7 @@ window.addEventListener('load', function () {
 
     duration.value = getQueryVariable("duration");
     recovery.value = getQueryVariable("recovery");
-//    latestYoutubeVideo();
+    //    latestYoutubeVideo();
 })
 
 
@@ -118,15 +118,15 @@ function saveSettings() {
 function circuitLoop() {
     if (running) {
         var dt = Date.now() - expected;
-        
-        var second = Math.ceil(countdownCounter/10);
+
+        var second = Math.ceil(countdownCounter / 10);
         clock.innerHTML = second;
         if (countdownCounter == 10 || countdownCounter == 20 || countdownCounter == 30) {
             lowChime.play();
         }
 
         if (flipFlop) { // exercise  
-            if (countdownCounter == duration.value*10) {
+            if (countdownCounter == duration.value * 10) {
                 highChime.play();
                 clock.style.color = "#D91E36";
 
@@ -142,7 +142,7 @@ function circuitLoop() {
                 }
             }
         } else { // recovery
-            if (countdownCounter == recovery.value*10) {
+            if (countdownCounter == recovery.value * 10) {
                 clock.style.color = "#92DCE5"
                 highChime.play();
             }
@@ -150,33 +150,36 @@ function circuitLoop() {
 
 
         if (countdownCounter == 1) {
-            countdownCounter = flipFlop ? recovery.value*10 : duration.value*10;
+            countdownCounter = flipFlop ? recovery.value * 10 : duration.value * 10;
             flipFlop = !flipFlop;
             if (!flipFlop && exerciseNumber >= exerciseArray.length) {
                 return setTimeout(finishCircuit, Math.max(0, interval - dt));
             }
-        }
-        else {
+        } else {
             countdownCounter -= 1;
         }
 
         // Compensate for time drift.
-//        console.log("Drifted:" + dt);
+        //        console.log("Drifted:" + dt);
         expected += interval;
         setTimeout(circuitLoop, Math.max(0, interval - dt));
     }
 }
 
 function countDown() {
-    if(running) {
+    if (running) {
         clock.innerHTML = "Get ready.." + countdownCounter;
         lowChime.play();
 
         if (countdownCounter == 1) {
             state = 1;
             expected = Date.now() + 1000;
-            countdownCounter = duration.value*10;
-            setTimeout( function() { circuitLoop(); clock.classList.remove("getReady"); debugStartTime = Date.now();}, 1000);
+            countdownCounter = duration.value * 10;
+            setTimeout(function () {
+                circuitLoop();
+                clock.classList.remove("getReady");
+                debugStartTime = Date.now();
+            }, 1000);
         } else {
             countdownCounter = countdownCounter - 1;
             setTimeout(countDown, 1000);
@@ -236,21 +239,21 @@ function finishCircuit() {
     };
     clock.classList.remove("getReady");
     clock.style.color = "#D91E36";
-    
-//    debugFinishTime = Date.now();
-//    debugExpectedFinishTime = debugStartTime + (((exerciseArray.length * duration.value) + ((exerciseArray.length - 1) * recovery.value)) * 1000);
-//    var timeLapsed = debugFinishTime - debugStartTime;
-//    console.log("ms elapsed: " + timeLapsed);
-//    console.log("error: " + (debugFinishTime - debugExpectedFinishTime);
-    
+
+    //    debugFinishTime = Date.now();
+    //    debugExpectedFinishTime = debugStartTime + (((exerciseArray.length * duration.value) + ((exerciseArray.length - 1) * recovery.value)) * 1000);
+    //    var timeLapsed = debugFinishTime - debugStartTime;
+    //    console.log("ms elapsed: " + timeLapsed);
+    //    console.log("error: " + (debugFinishTime - debugExpectedFinishTime);
+
     return;
 }
 
 function resumeCircuit() {
     running = true;
     if (state == 1) {
-        expected = Date.now() + interval/2;
-        setTimeout(circuitLoop, interval/2);
+        expected = Date.now() + interval / 2;
+        setTimeout(circuitLoop, interval / 2);
     }
     if (state == 0) {
         countDown();
@@ -276,7 +279,7 @@ function pauseCircuit() {
     pauseTimerButton.firstElementChild.classList.add("disabled");
     pauseTimerButton.onclick = "";
     running = false;
-    
+
 }
 
 function stopCircuit() {
@@ -299,20 +302,52 @@ function stopCircuit() {
 }
 
 function latestYoutubeVideo() {
-    $.ajax({
-        url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&playlistId=UUOwIIY3jKWNfNhZ7DEnuqlg&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+
+    var youtubeurl = "";
+    var title = "";
+
+    $.ajax({ // live
+        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=live&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
         dataType: 'json',
         success: function (data) {
-            //              console.log(data);
-            //              console.log(data['items'][0]['contentDetails']['videoId']);
-            let youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['contentDetails']['videoId'];
-            let title = data['items'][0]['snippet']['title'];
-            //                    console.log(youtubeurl);
-            youtubeLink.innerHTML = "Latest Video: " + title;
-            youtubeLink.href = youtubeurl;
+
+            if (data['pageInfo']['totalResults'] == 0) {
+                $.ajax({
+                    url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=upcoming&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+                    dataType: 'json',
+                    success: function (data) { // upcoming
+                        if (data['pageInfo']['totalResults'] == 0) {
+                            $.ajax({
+                                url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&playlistId=UUOwIIY3jKWNfNhZ7DEnuqlg&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['contentDetails']['videoId'];
+                                    title = "Latest Video: " + data['items'][0]['snippet']['title'];
+                                    //                    console.log(youtubeurl);
+                                },
+                                error: function () {
+                                    console.log("Error: Unable to fetch latest video.");
+                                }
+                            });
+                        } else {
+                            youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
+                            title = "Upcoming Live Stream: " + data['items'][0]['snippet']['title']
+                        }
+                    },
+                    error: function () {
+                        console.log("Error: Unable to fetch latest video.");
+                    }
+                });
+            } else {
+                youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
+                title = "Live Now: " + data['items'][0]['snippet']['title'];
+            }
         },
         error: function () {
             console.log("Error: Unable to fetch latest video.");
         }
     });
+    
+    youtubeLink.innerHTML = title;
+    youtubeLink.href = youtubeurl;
 }
