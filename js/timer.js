@@ -302,52 +302,62 @@ function stopCircuit() {
 }
 
 function latestYoutubeVideo() {
-
-    var youtubeurl = "";
-    var title = "";
-
-    $.ajax({ // live
-        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=live&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+    $.ajax({
+        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=live&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
         dataType: 'json',
         success: function (data) {
-
             if (data['pageInfo']['totalResults'] == 0) {
-                $.ajax({
-                    url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=upcoming&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
-                    dataType: 'json',
-                    success: function (data) { // upcoming
-                        if (data['pageInfo']['totalResults'] == 0) {
-                            $.ajax({
-                                url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&playlistId=UUOwIIY3jKWNfNhZ7DEnuqlg&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
-                                dataType: 'json',
-                                success: function (data) {
-                                    youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['contentDetails']['videoId'];
-                                    title = "Latest Video: " + data['items'][0]['snippet']['title'];
-                                    //                    console.log(youtubeurl);
-                                },
-                                error: function () {
-                                    console.log("Error: Unable to fetch latest video.");
-                                }
-                            });
-                        } else {
-                            youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
-                            title = "Upcoming Live Stream: " + data['items'][0]['snippet']['title']
-                        }
-                    },
-                    error: function () {
-                        console.log("Error: Unable to fetch latest video.");
-                    }
-                });
+//                console.log("No live videos.");
+                upcomingVideo();
             } else {
-                youtubeurl = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
-                title = "Live Now: " + data['items'][0]['snippet']['title'];
+                youtubeLink.href = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
+                youtubeLink.innerHTML = "Live Now: " + data['items'][0]['snippet']['title'];
             }
         },
         error: function () {
-            console.log("Error: Unable to fetch latest video.");
+            console.log("Error: Unable to fetch live video.");
         }
     });
-    
-    youtubeLink.innerHTML = title;
-    youtubeLink.href = youtubeurl;
 }
+
+function upcomingVideo() {
+        $.ajax({
+        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=upcoming&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+        dataType: 'json',
+        success: function (data) {
+            if (data['pageInfo']['totalResults'] == 0) {
+//                console.log("No upcoming videos.");
+                latestVideo();
+            } else {
+                youtubeLink.href = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
+                youtubeLink.innerHTML = "Upcoming Live Stream: " + data['items'][0]['snippet']['title'];
+            }
+        },
+        error: function () {
+            console.log("Error: Unable to fetch upcoming video.");
+        }
+    });
+}
+
+function latestVideo() {
+    $.ajax({ // latestVideo
+        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=UCOwIIY3jKWNfNhZ7DEnuqlg&eventType=completed&type=video&key=AIzaSyB88C612RASr-xRWI2WTfCWAROV4_6VWj8',
+        dataType: 'json',
+        success: function (data) {
+            if (data['pageInfo']['totalResults'] == 0) {
+//                console.log("No videos found.");
+                youtubeLink.href = "https://www.youtube.com/user/Jetmovies78";
+                youtubeLink.innerHTML = "TeamThie Circuits on YouTube";
+            } else {
+                youtubeLink.href = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
+                youtubeLink.innerHTML = "Latest Video: " + data['items'][0]['snippet']['title'];
+            }
+        },
+        error: function () {
+            console.log("Error: Unable to fetch video link.");
+            youtubeLink.href = "https://www.youtube.com/user/Jetmovies78";
+            youtubeLink.innerHTML = "TeamThie Circuits on YouTube";
+        }
+    });
+}
+
