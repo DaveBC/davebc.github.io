@@ -307,7 +307,7 @@ function latestYoutubeVideo() {
         dataType: 'json',
         success: function (data) {
             if (data['pageInfo']['totalResults'] == 0) {
-//                console.log("No live videos.");
+                console.log("No live videos.");
                 upcomingVideo();
             } else {
                 youtubeLink.href = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
@@ -316,6 +316,7 @@ function latestYoutubeVideo() {
         },
         error: function () {
             console.log("Error: Unable to fetch live video.");
+            upcomingVideo();
         }
     });
 }
@@ -326,7 +327,7 @@ function upcomingVideo() {
         dataType: 'json',
         success: function (data) {
             if (data['pageInfo']['totalResults'] == 0) {
-//                console.log("No upcoming videos.");
+                console.log("No upcoming videos.");
                 latestVideo();
             } else {
                 youtubeLink.href = "https://www.youtube.com/watch?v=" + data['items'][0]['id']['videoId'];
@@ -335,6 +336,7 @@ function upcomingVideo() {
         },
         error: function () {
             console.log("Error: Unable to fetch upcoming video.");
+            latestVideo();
         }
     });
 }
@@ -345,7 +347,7 @@ function latestVideo() {
         dataType: 'json',
         success: function (data) {
             if (data['pageInfo']['totalResults'] == 0) {
-//                console.log("No videos found.");
+                console.log("No videos found.");
                 youtubeLink.href = "https://www.youtube.com/user/Jetmovies78";
                 youtubeLink.innerHTML = "TeamThie Circuits on YouTube";
             } else {
